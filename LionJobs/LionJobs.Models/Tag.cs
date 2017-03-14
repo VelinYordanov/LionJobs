@@ -13,7 +13,7 @@ namespace LionJobs.Models
 
         public Guid Id { get; set; }
 
-        public string TagText { get; set; }
+        public TagType TagText { get; set; }
 
         public ICollection<Job> Jobs { get; set; }
     }
