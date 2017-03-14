@@ -7,11 +7,15 @@ namespace LionJobs.Data
     {
         public LionJobsDbContext():base("LionJobsDb")
         {
-
+            
         }
 
         public IDbSet<Job> Jobs { get; set; }
 
         public IDbSet<Tag> Tags { get; set; }
+
+        public IDbSet<Employee> Employees { get; set; }
+
+        public IDbSet<Company> Companies { get; set; }
     }
 }

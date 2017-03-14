@@ -9,15 +9,19 @@ namespace LionJobs.Models
         {
             this.Id = Guid.NewGuid();
             this.Tags = new HashSet<Tag>();
-            this.JobApplicants = new HashSet<ApplicationUser>();
+            this.JobApplicants = new HashSet<Employee>();
         }
 
         public Guid Id { get; set; }
+
+        public string Title { get; set; }
+
+        public string Description { get; set; }
 
         public virtual ICollection<Tag> Tags { get; set; }
 
         public Company Company { get; set; }
 
-        public virtual ICollection<ApplicationUser> JobApplicants { get; set; }
+        public virtual ICollection<Employee> JobApplicants { get; set; }
     }
 }

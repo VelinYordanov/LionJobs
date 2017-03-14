@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LionJobs.Models
 {
@@ -11,10 +8,13 @@ namespace LionJobs.Models
         public Tag()
         {
             this.Id = Guid.NewGuid();
+            this.Jobs = new HashSet<Job>();
         }
 
         public Guid Id { get; set; }
 
         public string TagText { get; set; }
+
+        public ICollection<Job> Jobs { get; set; }
     }
 }

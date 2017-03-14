@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace LionJobs.Models
 {
-    public class Company :IdentityUser
+    public class Company : ApplicationUser
     {
-        public string CompanyName { get; set; }
-
-        public byte[] UserImage { get; set; }
+        public string CompanyName { get; set; }        
 
         public virtual ICollection<Job> ListedJobs { get; set; }
     }

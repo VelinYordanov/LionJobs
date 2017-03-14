@@ -10,18 +10,7 @@ namespace LionJobs.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public ApplicationUser()
-        {
-            this.JobHistory = new HashSet<Job>();
-        }
-
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public byte[] Cv { get; set; }        
-
-        public virtual ICollection<Job> JobHistory { get; set; }
+        public byte[] UserImage { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
