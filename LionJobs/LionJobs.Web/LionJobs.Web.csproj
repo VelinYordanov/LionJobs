@@ -277,6 +277,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LionJobs.Data\LionJobs.Data.csproj">
+      <Project>{3C474A02-4E93-4BFE-AF47-5E91095FC627}</Project>
+      <Name>LionJobs.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LionJobs.Models\LionJobs.Models.csproj">
       <Project>{1cde0add-9888-44e4-b002-481e4ab69e8e}</Project>
       <Name>LionJobs.Models</Name>

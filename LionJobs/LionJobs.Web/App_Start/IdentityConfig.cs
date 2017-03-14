@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using LionJobs.Web.Models;
+using LionJobs.Models;
+using LionJobs.Data;
 
 namespace LionJobs.Web
 {

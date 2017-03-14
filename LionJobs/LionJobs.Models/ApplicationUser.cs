@@ -13,18 +13,13 @@ namespace LionJobs.Models
         public ApplicationUser()
         {
             this.JobHistory = new HashSet<Job>();
-            this.ListedJobs = new HashSet<Job>();
         }
 
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
-        public string CompanyName { get; set; }
-
-        public byte[] Cv { get; set; }
-
-        public virtual ICollection<Job> ListedJobs { get; set; }
+        public byte[] Cv { get; set; }        
 
         public virtual ICollection<Job> JobHistory { get; set; }
 

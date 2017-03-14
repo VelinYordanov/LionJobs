@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LionJobs.Web.Models;
+using LionJobs.Models;
 
 namespace LionJobs.Web.Controllers
 {

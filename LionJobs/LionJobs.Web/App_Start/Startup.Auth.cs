@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using LionJobs.Web.Models;
+using LionJobs.Data;
+using LionJobs.Models;
 
 namespace LionJobs.Web
 {

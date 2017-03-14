@@ -16,6 +16,8 @@ namespace LionJobs.Models
 
         public virtual ICollection<Tag> Tags { get; set; }
 
+        public Company Company { get; set; }
+
         public virtual ICollection<ApplicationUser> JobApplicants { get; set; }
     }
 }
