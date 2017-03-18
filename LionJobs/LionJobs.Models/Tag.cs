@@ -15,6 +15,6 @@ namespace LionJobs.Models
 
         public TagType TagText { get; set; }
 
-        public ICollection<Job> Jobs { get; set; }
+        public virtual ICollection<Job> Jobs { get; set; }
     }
 }

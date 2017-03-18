@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionJobs.Data", "LionJobs.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionJobs.Data.Common", "LionJobs.Data.Common\LionJobs.Data.Common.csproj", "{D9BE5B1B-1B4C-40B7-A1CC-3DF59EA77AD6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{343749EC-8EEB-434F-A36A-93E91139C14A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionJobs.Models.Tests", "LionJobs.Models.Tests\LionJobs.Models.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LionJobs.Data.Common.Tests", "LionJobs.Data.Tests\LionJobs.Data.Common.Tests.csproj", "{64BC3B3C-345F-4AFA-AFF9-FF90B6DB7E3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +39,20 @@ Global
 		{D9BE5B1B-1B4C-40B7-A1CC-3DF59EA77AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9BE5B1B-1B4C-40B7-A1CC-3DF59EA77AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9BE5B1B-1B4C-40B7-A1CC-3DF59EA77AD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDF4429-251A-416D-BB68-93F227191BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64BC3B3C-345F-4AFA-AFF9-FF90B6DB7E3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64BC3B3C-345F-4AFA-AFF9-FF90B6DB7E3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64BC3B3C-345F-4AFA-AFF9-FF90B6DB7E3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64BC3B3C-345F-4AFA-AFF9-FF90B6DB7E3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8EDF4429-251A-416D-BB68-93F227191BCF} = {343749EC-8EEB-434F-A36A-93E91139C14A}
+		{64BC3B3C-345F-4AFA-AFF9-FF90B6DB7E3F} = {343749EC-8EEB-434F-A36A-93E91139C14A}
 	EndGlobalSection
 EndGlobal
