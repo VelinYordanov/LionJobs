@@ -11,6 +11,9 @@ using Microsoft.Owin.Security;
 using LionJobs.Web.Models;
 using LionJobs.Models;
 using LionJobs.Web.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
+using LionJobs.Data;
+using Ninject;
 
 namespace LionJobs.Web.Controllers
 {
@@ -159,6 +162,16 @@ namespace LionJobs.Web.Controllers
             {
                 var user = new Company { CompanyName = model.CompanyName, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+                if (!roleManager.RoleExists("Company"))
+                {
+                    var role = new IdentityRole();
+                    role.Name = "Company";
+                    roleManager.Create(role);
+
+                }
+
+                this.UserManager.AddToRole(user.Id, "Company");
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -193,6 +206,16 @@ namespace LionJobs.Web.Controllers
             {
                 var user = new Employee { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+                if (!roleManager.RoleExists("Employee"))
+                {
+                    var role = new IdentityRole();
+                    role.Name = "Employee";
+                    roleManager.Create(role);
+
+                }
+
+                this.UserManager.AddToRole(user.Id, "Employee");
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
