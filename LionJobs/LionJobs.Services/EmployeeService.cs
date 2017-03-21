@@ -8,9 +8,9 @@ namespace LionJobs.Services
     public class EmployeesService : IEmployeeService
     {
         private IEfRepository<Employee> repository;
-        private EfUnitOfWork unitOfWork;
+        private IUnitOfWork unitOfWork;
 
-        public EmployeesService(IEfRepository<Employee> repository, EfUnitOfWork unitOfWork)
+        public EmployeesService(IEfRepository<Employee> repository, IUnitOfWork unitOfWork)
         {
             this.repository = repository;
             this.unitOfWork = unitOfWork;

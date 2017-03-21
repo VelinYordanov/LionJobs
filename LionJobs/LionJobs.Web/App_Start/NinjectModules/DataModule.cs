@@ -4,6 +4,7 @@ using Ninject.Modules;
 using Ninject.Web.Common;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -13,7 +14,7 @@ namespace LionJobs.Web.App_Start.NinjectModules
     {
         public override void Load()
         {
-            Bind<LionJobsDbContext>().ToSelf().InRequestScope();
+            Bind<DbContext>().To<ApplicationDbContext>().InRequestScope();
             Bind(typeof(IEfRepository<>)).To(typeof(EfRepository<>)).InRequestScope();
             Bind<IUnitOfWork>().To<EfUnitOfWork>().InRequestScope();
         }

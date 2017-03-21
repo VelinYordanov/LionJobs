@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace LionJobs.Web.Controllers
 {
+    [Authorize(Roles ="Company")]
     public class EmployeesController : Controller
     {
         private readonly IEmployeeService service;
@@ -20,6 +21,8 @@ namespace LionJobs.Web.Controllers
         // GET: Employees
         public ActionResult Index()
         {
+            var employees = this.service.GetEmployees();
+            //IEnumerable<>
             return View(this.service.GetEmployees());
         }
     }
