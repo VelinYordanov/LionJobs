@@ -209,11 +209,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NinjectModules\DataModule.cs" />
+    <Compile Include="App_Start\NinjectModules\ServicesModule.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -308,6 +310,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Company.cshtml" />
     <Content Include="Views\Account\Employee.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -321,6 +324,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LionJobs.Data.Common\LionJobs.Data.Common.csproj">
+      <Project>{D9BE5B1B-1B4C-40B7-A1CC-3DF59EA77AD6}</Project>
+      <Name>LionJobs.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LionJobs.Data\LionJobs.Data.csproj">
       <Project>{3C474A02-4E93-4BFE-AF47-5E91095FC627}</Project>
       <Name>LionJobs.Data</Name>
@@ -328,6 +335,10 @@
     <ProjectReference Include="..\LionJobs.Models\LionJobs.Models.csproj">
       <Project>{1cde0add-9888-44e4-b002-481e4ab69e8e}</Project>
       <Name>LionJobs.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LionJobs.Services\LionJobs.Services.csproj">
+      <Project>{BE8EB0BD-B64A-4B0F-9117-675B37AA243B}</Project>
+      <Name>LionJobs.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
