@@ -26,17 +26,20 @@ namespace LionJobs.Models.Tests
         {
             //Arrange
             var companyName = "companyName";
+            var description = "asdasdasdasdasdassdassdasdassddassdasddassd";
             var jobs = new HashSet<Job>();
 
             //Act
             var company = new Company
             {
                 CompanyName = companyName,
+                Description = description,
                 ListedJobs = jobs
             };
 
             //Assert
             Assert.AreEqual(company.CompanyName, companyName);
+            Assert.AreEqual(company.Description, description);
             Assert.IsNotNull(company.ListedJobs);
         }
 

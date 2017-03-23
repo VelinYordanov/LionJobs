@@ -6,13 +6,17 @@ namespace LionJobs.Web.ViewModels
     {
         [Required]
         [Display(Name = "Company name")]
-        [StringLength(30, MinimumLength = 5, ErrorMessage = "Cannot be less than 2 symbols or more than 15 symbols.")]
+        [StringLength(30, MinimumLength = 5, ErrorMessage = "Name cannot be less than 5 symbols or more than 30 symbols.")]
         public string CompanyName { get; set; }
 
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [StringLength(100,MinimumLength =30,ErrorMessage ="Description cannot be less than 30 symbols or longer than 100 symbols.")]
+        public string Description { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

@@ -169,7 +169,7 @@ namespace LionJobs.Web.Controllers
             {
                 var image = this.imageService.GetImage(Server.MapPath(DefaultImagePath));
                 var convertedImage = this.imageService.ImageToByteArray(image);
-                var user = new Company { CompanyName = model.CompanyName, UserImage = convertedImage, UserName = model.Email, Email = model.Email };
+                var user = new Company { CompanyName = model.CompanyName,Description=model.Description, UserImage = convertedImage, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
                 if (!roleManager.RoleExists("Company"))
