@@ -15,7 +15,7 @@ namespace LionJobs.Web.ViewModels
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100,MinimumLength =30,ErrorMessage ="Description cannot be less than 30 symbols or longer than 100 symbols.")]
+        [StringLength(300,MinimumLength =30,ErrorMessage ="Description cannot be less than 30 symbols or longer than 300 symbols.")]
         public string Description { get; set; }
 
         [Required]
