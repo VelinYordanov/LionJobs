@@ -10,7 +10,8 @@ namespace LionJobs.Web.App_Start.NinjectModules
         public override void Load()
         {
             Bind<IEmployeeService>().To<EmployeesService>().InRequestScope();
-            Bind<IImageService>().To<ImageService>();
+            Bind<IImageService>().To<ImageService>().InRequestScope();
+            Bind<ICompanyService>().To<CompaniesService>().InRequestScope();
         }
     }
 }

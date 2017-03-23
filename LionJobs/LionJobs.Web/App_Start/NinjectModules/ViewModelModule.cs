@@ -13,6 +13,7 @@ namespace LionJobs.Web.App_Start.NinjectModules
         public override void Load()
         {
             Bind<IEmployeeListViewModel>().To<EmployeesListViewModel>().InRequestScope();
+            Bind<ICompanyViewModel>().To<CompanyViewModel>().InRequestScope();
         }
     }
 }

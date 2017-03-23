@@ -1,0 +1,24 @@
+﻿@model IEnumerable<LionJobs.Web.ViewModels.ICompanyViewModel>
+<div class="container">
+    <h4>Companies:</h4>
+    @foreach (var company in Model)
+    {
+        <div class="row">
+            <div class="col s12 m7">
+                <div class="card small">
+                    <div class="card-image">
+                        <img src="@company.UserImageUrl">
+                        <span class="card-title">@company.CompanyName</span>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            @company.Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
