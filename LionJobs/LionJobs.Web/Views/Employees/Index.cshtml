@@ -1,8 +1,16 @@
-﻿@model 
+﻿@model IEnumerable<LionJobs.Web.ViewModels.IEmployeeListViewModel>
 @{
     ViewBag.Title = "Index";
 }
-
-<h4>Available employees:</h4>
-
-
+<div class="container">
+    <h4>Available employees:</h4>
+    <div class="row">
+        @foreach (var employee in Model)
+        {
+            <div class="chip col s4">
+                <img src=@employee.UserImageUrl alt="Contact Person" />
+                @employee.FullName
+            </div>
+        }
+    </div>
+</div>

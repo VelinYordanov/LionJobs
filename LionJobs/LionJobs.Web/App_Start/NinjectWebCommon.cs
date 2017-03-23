@@ -65,8 +65,10 @@ namespace LionJobs.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Load(new DataModule(),
-                new ServicesModule());
+            kernel.Load(
+                new DataModule(),
+                new ServicesModule(),
+                new ViewModelModule());
         }
     }
 }

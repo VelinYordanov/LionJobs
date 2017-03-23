@@ -14,23 +14,30 @@ using LionJobs.Web.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using LionJobs.Data;
 using Ninject;
+using LionJobs.Services;
+using LionJobs.Services.Interfaces;
 
 namespace LionJobs.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private const string DefaultImagePath = "~/Images/HappyFace.jpg";
+        
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IImageService imageService;
 
-        public AccountController()
+        public AccountController(IImageService imageService)
         {
+            this.imageService = imageService;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            
         }
 
         public ApplicationSignInManager SignInManager
@@ -160,7 +167,9 @@ namespace LionJobs.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Company { CompanyName = model.CompanyName, UserName = model.Email, Email = model.Email };
+                var image = this.imageService.GetImage(Server.MapPath(DefaultImagePath));
+                var convertedImage = this.imageService.ImageToByteArray(image);
+                var user = new Company { CompanyName = model.CompanyName, UserImage = convertedImage, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
                 if (!roleManager.RoleExists("Company"))
@@ -204,7 +213,9 @@ namespace LionJobs.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Employee { FirstName = model.FirstName, LastName = model.LastName, UserName = model.Email, Email = model.Email };
+                var image = this.imageService.GetImage(Server.MapPath(DefaultImagePath));
+                var convertedImage = this.imageService.ImageToByteArray(image);
+                var user = new Employee { FirstName = model.FirstName, LastName = model.LastName, UserImage = convertedImage, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
                 if (!roleManager.RoleExists("Employee"))
@@ -212,7 +223,6 @@ namespace LionJobs.Web.Controllers
                     var role = new IdentityRole();
                     role.Name = "Employee";
                     roleManager.Create(role);
-
                 }
 
                 this.UserManager.AddToRole(user.Id, "Employee");
