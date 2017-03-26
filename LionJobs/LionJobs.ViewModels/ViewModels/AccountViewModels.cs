@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace LionJobs.Web.Models
+namespace LionJobs.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {

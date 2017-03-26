@@ -1,5 +1,5 @@
 ﻿using LionJobs.Services.Interfaces;
-using LionJobs.Web.ViewModels;
+using LionJobs.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace LionJobs.Web.Controllers
 {
+    [Authorize(Roles = "Employee")]
     public class CompaniesController : Controller
     {
         private ICompanyService companyService;

@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Web;
 
-namespace LionJobs.Web.ViewModels
+namespace LionJobs.ViewModels
 {
     public class EmployeesListViewModel : IEmployeeListViewModel
     {

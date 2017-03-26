@@ -12,6 +12,7 @@ namespace LionJobs.Web.App_Start.NinjectModules
             Bind<IEmployeeService>().To<EmployeesService>().InRequestScope();
             Bind<IImageService>().To<ImageService>().InRequestScope();
             Bind<ICompanyService>().To<CompaniesService>().InRequestScope();
+            Bind<CreateAJobService>().ToSelf();
         }
     }
 }

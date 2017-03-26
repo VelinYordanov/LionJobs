@@ -3,12 +3,8 @@ using System.Data.Entity;
 
 namespace LionJobs.Data
 {
-    public class LionJobsDbContext :DbContext
-    {
-        public LionJobsDbContext():base("LionJobsDb")
-        {
-            
-        }
+    public class LionJobsDbContext :ApplicationDbContext
+    {      
 
         public IDbSet<Job> Jobs { get; set; }
 

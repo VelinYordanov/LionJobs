@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LionJobs.Web.ViewModels
+namespace LionJobs.ViewModels
 {
     public class CompanyViewModel :ICompanyViewModel
     {

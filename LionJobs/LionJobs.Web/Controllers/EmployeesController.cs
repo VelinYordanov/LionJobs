@@ -1,7 +1,7 @@
 ﻿using LionJobs.Models;
 using LionJobs.Services;
 using LionJobs.Services.Interfaces;
-using LionJobs.Web.ViewModels;
+using LionJobs.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

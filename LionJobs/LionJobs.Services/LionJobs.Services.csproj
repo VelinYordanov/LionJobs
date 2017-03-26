@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompaniesService.cs" />
+    <Compile Include="CreateAJobService.cs" />
     <Compile Include="EmployeeService.cs" />
     <Compile Include="Interfaces\ICompanyService.cs" />
     <Compile Include="Interfaces\IImageService.cs" />
@@ -57,6 +58,10 @@
     <ProjectReference Include="..\LionJobs.Models\LionJobs.Models.csproj">
       <Project>{1CDE0ADD-9888-44E4-B002-481E4AB69E8E}</Project>
       <Name>LionJobs.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LionJobs.ViewModels\LionJobs.ViewModels.csproj">
+      <Project>{C3EF26DF-5504-4D4D-96B5-BF4334653365}</Project>
+      <Name>LionJobs.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
