@@ -14,6 +14,16 @@ namespace LionJobs.Services
 
         public EmployeesService(IEfRepository<Employee> repository, IUnitOfWork unitOfWork)
         {
+            if(repository == null)
+            {
+                throw new ArgumentException("repository");
+            }
+
+            if(unitOfWork == null)
+            {
+                throw new ArgumentException("unitofwork");
+            }
+
             this.repository = repository;
             this.unitOfWork = unitOfWork;
         }

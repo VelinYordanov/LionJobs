@@ -51,6 +51,9 @@
     <Compile Include="CreateAJobService_GetByIdShould.cs" />
     <Compile Include="CreateAJobService_ConstructorShould.cs" />
     <Compile Include="CreateAJobService_MapJobShould.cs" />
+    <Compile Include="EmployeeService_GetAllShould.cs" />
+    <Compile Include="EmployeeService_GetByIdShould.cs" />
+    <Compile Include="EmployeeService_MapModelShould.cs" />
     <Compile Include="EmployeesService_ConstructorShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

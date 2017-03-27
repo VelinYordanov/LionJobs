@@ -14,6 +14,7 @@ namespace LionJobs.Services.Tests
     [TestFixture]
     public class CreateAJobService_MapJobShould
     {
+        [Test]
         public void MapJobProperly()
         {
             //Arrange
