@@ -18,9 +18,28 @@ namespace LionJobs.Services
 
         public CreateAJobService(IEfRepository<Company> companyRepository, IEfRepository<Job> jobsRepository,Job job,IUnitOfWork unitOfWork)
         {
+            if(companyRepository == null)
+            {
+                throw new ArgumentException("company repository null");
+            }
             this.companyRepository = companyRepository;
+
+            if(jobsRepository == null)
+            {
+                throw new ArgumentException("jobs repository null");
+            }
             this.jobsRepository = jobsRepository;
+
+            if(job == null)
+            {
+                throw new ArgumentException("job is null");
+            }
             this.job = job;
+
+            if(unitOfWork == null)
+            {
+                throw new ArgumentException("Unit of work is null");
+            }
             this.unitOfWork = unitOfWork;
         }
 

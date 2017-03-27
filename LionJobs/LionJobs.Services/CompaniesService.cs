@@ -14,8 +14,14 @@ namespace LionJobs.Services
         private IEfRepository<Company> repository;
         public CompaniesService(IEfRepository<Company> repository)
         {
+            if(repository == null)
+            {
+                throw new ArgumentException("IEfRepository in company service is null.");
+            }
+
             this.repository = repository;
         }
+
         public IEnumerable<Company> GetCompanies()
         {
             return this.repository.GetAll();

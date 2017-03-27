@@ -39,10 +39,5 @@ namespace LionJobs.Services
 
             return model;
         }
-
-        public void AddJobToEmployeeJobHistory(string employeeId, Guid jobId)
-        {
-
-        }
     }
 }
