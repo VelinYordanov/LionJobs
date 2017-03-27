@@ -1,5 +1,6 @@
 ﻿using LionJobs.Data.Common;
 using LionJobs.Models;
+using LionJobs.Services.Interfaces;
 using LionJobs.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LionJobs.Services
 {
-    public class CreateAJobService
+    public class CreateAJobService :ICreateAJobService
     {
         private readonly IEfRepository<Company> companyRepository;
         private readonly IEfRepository<Job> jobsRepository;

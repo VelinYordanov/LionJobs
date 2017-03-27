@@ -19,6 +19,21 @@ namespace LionJobs.Web.Controllers
 
         public EmployeesController(IEmployeeService service,IImageService imageService, IEmployeeListViewModel model)
         {
+            if(service == null)
+            {
+                throw new ArgumentException("employee");
+            }
+
+            if(imageService == null)
+            {
+                throw new ArgumentException("image");
+            }
+
+            if(model == null)
+            {
+                throw new ArgumentException("viewmodel");
+            }
+
             this.employeeService = service;
             this.imageService = imageService;
             this.model = model;

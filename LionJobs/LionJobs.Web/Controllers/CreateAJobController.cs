@@ -1,4 +1,5 @@
 ﻿using LionJobs.Services;
+using LionJobs.Services.Interfaces;
 using LionJobs.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
@@ -11,16 +12,28 @@ using System.Web.Mvc;
 
 namespace LionJobs.Web.Controllers
 {
+    [Authorize(Roles ="Company")]
     public class CreateAJobController : Controller
     {
-        private readonly CreateAJobService jobService;
+        private readonly ICreateAJobService jobService;
         private readonly CreateAJobViewModel jobViewModel;
 
-        public CreateAJobController(CreateAJobService jobService,CreateAJobViewModel jobViewModel)
+        public CreateAJobController(ICreateAJobService jobService,CreateAJobViewModel jobViewModel)
         {
+            if(jobService == null)
+            {
+                throw new ArgumentException("job");
+            }
+
+            if(jobViewModel == null)
+            {
+                throw new ArgumentException("viewmodel");
+            }
+
             this.jobService = jobService;
             this.jobViewModel = jobViewModel;
         }
+
         // GET: CreateAJob
         public ActionResult Index()
         {

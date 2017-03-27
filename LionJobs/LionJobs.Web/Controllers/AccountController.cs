@@ -30,6 +30,11 @@ namespace LionJobs.Web.Controllers
 
         public AccountController(IImageService imageService)
         {
+            if(imageService == null)
+            {
+                throw new ArgumentException("imageservice");
+            }
+
             this.imageService = imageService;
         }
 

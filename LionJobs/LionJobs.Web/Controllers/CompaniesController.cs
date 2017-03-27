@@ -17,6 +17,21 @@ namespace LionJobs.Web.Controllers
 
         public CompaniesController(ICompanyService companyService, IImageService imageService,ICompanyViewModel companyViewModel)
         {
+            if(companyService == null)
+            {
+                throw new ArgumentException("company");
+            }
+
+            if(imageService == null)
+            {
+                throw new ArgumentException("image");
+            }
+
+            if(companyViewModel == null)
+            {
+                throw new ArgumentException("viewmodel");
+            }
+
             this.companyService = companyService;
             this.imageService = imageService;
             this.companyViewModel = companyViewModel;

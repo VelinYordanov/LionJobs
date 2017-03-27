@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace LionJobs.Web.Controllers
 {
+    [Authorize(Roles ="Company")]
     public class ListedJobsController : Controller
     {
         private IListedJobsService jobsService;
@@ -17,6 +18,21 @@ namespace LionJobs.Web.Controllers
 
         public ListedJobsController(IListedJobsService jobsService, IEmployeeService employeeService, IUnitOfWork unitOfWork)
         {
+            if(jobsService == null)
+            {
+                throw new ArgumentException("jobservice");
+            }
+
+            if(employeeService == null)
+            {
+                throw new ArgumentException("employeeservice");
+            }
+
+            if(unitOfWork == null)
+            {
+                throw new ArgumentException("unitofwork");
+            }
+
             this.jobsService = jobsService;
             this.employeeService = employeeService;
             this.unitOfWork = unitOfWork;

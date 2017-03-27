@@ -16,6 +16,11 @@ namespace LionJobs.Web.Controllers
 
         public FindAJobController(IFindJobService findAJobService)
         {
+            if(findAJobService == null)
+            {
+                throw new ArgumentException("jobservice");
+            }
+
             this.findAJobService = findAJobService;
         }
 
