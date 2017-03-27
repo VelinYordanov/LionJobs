@@ -38,6 +38,7 @@ namespace LionJobs.Web.Controllers
         }
 
         // GET: Companies
+        [OutputCache(Duration =5*60)]
         public ActionResult Index()
         {
             var companies = this.companyService.GetCompanies().Select(x =>
