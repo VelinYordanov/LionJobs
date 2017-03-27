@@ -17,6 +17,16 @@ namespace LionJobs.Services
 
         public ListedJobsService(IEfRepository<Job> jobsRepository, IEfRepository<Company> companyRepository)
         {
+            if(jobsRepository == null)
+            {
+                throw new ArgumentException("jobs");
+            }
+
+            if(companyRepository == null)
+            {
+                throw new ArgumentException("company");
+            }
+
             this.jobsRepository = jobsRepository;
             this.companyRepository = companyRepository;
         }

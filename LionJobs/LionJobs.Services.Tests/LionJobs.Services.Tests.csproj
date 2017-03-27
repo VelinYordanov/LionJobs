@@ -45,6 +45,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompanyServiceTests.cs" />
@@ -55,6 +56,13 @@
     <Compile Include="EmployeeService_GetByIdShould.cs" />
     <Compile Include="EmployeeService_MapModelShould.cs" />
     <Compile Include="EmployeesService_ConstructorShould.cs" />
+    <Compile Include="FindAJobService_ConstructorShould.cs" />
+    <Compile Include="FindAJobService_FindAJobShould.cs" />
+    <Compile Include="ImageService_ByteArrayToImageShould.cs" />
+    <Compile Include="ImageService_GetImageShould.cs" />
+    <Compile Include="ListedJobsService_ConstructorShould.cs" />
+    <Compile Include="ListedJobsService_GetJobsShould.cs" />
+    <Compile Include="ListedJobs_GetByIdShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

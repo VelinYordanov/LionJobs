@@ -19,6 +19,26 @@ namespace LionJobs.Services
 
         public FindAJobService(IEfRepository<Job> jobRepository, IEfRepository<Employee> employeeRepository, CompanyJobsViewModel jobsViewModel,IUnitOfWork unitOfWork)
         {
+            if(jobRepository == null)
+            {
+                throw new ArgumentException("jobrepository");
+            }
+
+            if(employeeRepository == null)
+            {
+                throw new ArgumentException("employeerepository");
+            }
+
+            if(jobsViewModel == null)
+            {
+                throw new ArgumentException("viewmodel");
+            }
+
+            if(unitOfWork == null)
+            {
+                throw new ArgumentException("unitofwork");
+            }
+
             this.jobRepository = jobRepository;
             this.employeeRepository = employeeRepository;
             this.jobsViewModel = jobsViewModel;
