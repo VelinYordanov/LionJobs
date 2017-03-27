@@ -35,7 +35,6 @@ namespace LionJobs.Services
             job.Company = company;
             this.jobsRepository.Add(job);
             company.ListedJobs.Add(job);
-            //this.companyRepository.Update(company);
             this.unitOfWork.SaveChanges();
         }
 

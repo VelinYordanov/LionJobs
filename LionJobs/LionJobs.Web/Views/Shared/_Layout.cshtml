@@ -37,6 +37,14 @@
                     {
                         <li>@Html.ActionLink("Create a job", "Index", "CreateAJob")</li>
                     }
+                    @if (Request.IsAuthenticated && User.IsInRole("Employee"))
+                    {
+                        <li>@Html.ActionLink("Browse jobs", "Index", "FindAJob")</li>
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("Company"))
+                    {
+                        <li>@Html.ActionLink("My jobs", "Index", "ListedJobs")</li>
+                    }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>

@@ -227,7 +227,9 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\CreateAJobController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\FindAJobController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ListedJobsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -321,6 +323,10 @@
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
     <Content Include="Views\CreateAJob\Index.cshtml" />
+    <Content Include="Views\FindAJob\Index.cshtml" />
+    <Content Include="Views\FindAJob\Apply.cshtml" />
+    <Content Include="Views\ListedJobs\Index.cshtml" />
+    <Content Include="Views\ListedJobs\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

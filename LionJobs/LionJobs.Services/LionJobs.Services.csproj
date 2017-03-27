@@ -44,10 +44,14 @@
     <Compile Include="CompaniesService.cs" />
     <Compile Include="CreateAJobService.cs" />
     <Compile Include="EmployeeService.cs" />
+    <Compile Include="FindAJobService.cs" />
     <Compile Include="Interfaces\ICompanyService.cs" />
+    <Compile Include="Interfaces\IFindJobService.cs" />
     <Compile Include="Interfaces\IImageService.cs" />
     <Compile Include="ImageService.cs" />
     <Compile Include="Interfaces\IEmployeeService.cs" />
+    <Compile Include="Interfaces\IListedJobsService.cs" />
+    <Compile Include="ListedJobsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

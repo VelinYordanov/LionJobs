@@ -14,8 +14,8 @@ namespace LionJobs.Web.App_Start.NinjectModules
         {
             Bind<IEmployeeListViewModel>().To<EmployeesListViewModel>().InRequestScope();
             Bind<ICompanyViewModel>().To<CompanyViewModel>().InRequestScope();
-            Bind<CreateAJobViewModel>().ToSelf();
-
+            Bind<CreateAJobViewModel>().ToSelf().InRequestScope();
+            Bind<CompanyJobsViewModel>().ToSelf().InRequestScope();
         }
     }
 }

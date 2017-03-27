@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace LionJobs.Data.Common
@@ -11,7 +12,7 @@ namespace LionJobs.Data.Common
         IEnumerable<T1> GetAll<T1>(Expression<Func<T, bool>> filterExpression, Expression<Func<T, T1>> selectExpression);
 
         // For queryable collections
-        //IQueryable<T> GetAll { get; }
+        IQueryable<T> GetAllQueryable { get; }
 
         T GetById(object id);
 

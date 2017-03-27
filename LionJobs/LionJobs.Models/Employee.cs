@@ -12,6 +12,7 @@ namespace LionJobs.Models
         public Employee()
         {
             this.JobHistory = new HashSet<Job>();
+            this.JobApplications = new HashSet<Job>();
         }
 
         [Required(ErrorMessage ="First name is required.")]
@@ -25,6 +26,8 @@ namespace LionJobs.Models
         public string LastName { get; set; }
 
         public byte[] Cv { get; set; }
+
+        public virtual ICollection<Job> JobApplications { get; set; }
 
         public virtual ICollection<Job> JobHistory { get; set; }
     }

@@ -1,6 +1,8 @@
 ﻿using LionJobs.Data.Common;
 using LionJobs.Models;
 using LionJobs.Services.Interfaces;
+using LionJobs.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace LionJobs.Services
@@ -19,6 +21,28 @@ namespace LionJobs.Services
         public IEnumerable<Employee> GetEmployees()
         {
             return this.repository.GetAll();
+        }
+
+        public Employee GetEmployee(object Id)
+        {
+            return this.repository.GetById(Id);
+        }
+
+        public JobCandidateViewModel MapModel(string employeeId,Employee employee, Guid jobId)
+        {
+            var model = new JobCandidateViewModel
+            {
+                FullName = employee.FirstName + " " + employee.LastName,
+                EmployeeId = employeeId,
+                JobId = jobId
+            };
+
+            return model;
+        }
+
+        public void AddJobToEmployeeJobHistory(string employeeId, Guid jobId)
+        {
+
         }
     }
 }

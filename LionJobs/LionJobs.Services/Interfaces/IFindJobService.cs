@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace LionJobs.Services.Interfaces
 {
-    public interface IEmployeeService
+    public interface IFindJobService
     {
-        IEnumerable<Employee> GetEmployees();
+        IEnumerable<CompanyJobsViewModel> GetJobs();
 
-        Employee GetEmployee(object Id);
+        Job FindAJob(object id);
 
-        JobCandidateViewModel MapModel(string employeeId, Employee employee, Guid jobId);
+        void AddCandidate(object employeeId, Job job);
     }
 }
