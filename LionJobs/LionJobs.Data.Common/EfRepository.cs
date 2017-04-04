@@ -44,7 +44,13 @@ namespace LionJobs.Data.Common
         }
 
         // For queryable collections
-        public IQueryable<T> GetAllQueryable { get; }
+        public IQueryable<T> GetAllQueryable
+        {
+            get
+            {
+                return this.DbSet;
+            }
+        }
 
 
         public void Add(T entity)

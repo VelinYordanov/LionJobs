@@ -127,6 +127,7 @@
     <Compile Include="ViewModels\IEmployeeListViewModel.cs" />
     <Compile Include="ViewModels\ListedJobsViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
+    <Compile Include="ViewModels\PagedCompanyViewModelList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

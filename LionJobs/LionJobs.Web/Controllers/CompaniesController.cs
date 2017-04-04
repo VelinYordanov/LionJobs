@@ -10,24 +10,24 @@ namespace LionJobs.Web.Controllers
 {
     [Authorize(Roles = "Employee")]
     public class CompaniesController : Controller
-    {
+    {        
         private ICompanyService companyService;
         private ICompanyViewModel companyViewModel;
         private IImageService imageService;
 
-        public CompaniesController(ICompanyService companyService, IImageService imageService,ICompanyViewModel companyViewModel)
+        public CompaniesController(ICompanyService companyService, IImageService imageService, ICompanyViewModel companyViewModel)
         {
-            if(companyService == null)
+            if (companyService == null)
             {
                 throw new ArgumentException("company");
             }
 
-            if(imageService == null)
+            if (imageService == null)
             {
                 throw new ArgumentException("image");
             }
 
-            if(companyViewModel == null)
+            if (companyViewModel == null)
             {
                 throw new ArgumentException("viewmodel");
             }
@@ -38,18 +38,12 @@ namespace LionJobs.Web.Controllers
         }
 
         // GET: Companies
-        [OutputCache(Duration =5*60)]
-        public ActionResult Index()
+        //[OutputCache(Duration =5*60)]
+        public ActionResult Index(int id = 1)
         {
-            var companies = this.companyService.GetCompanies().Select(x =>
-            {
-                this.companyViewModel.CompanyName = x.CompanyName;
-                this.companyViewModel.Description = x.Description;
-                this.companyViewModel.UserImageUrl = this.imageService.ByteArrayToImageUrl(x.UserImage);
-                return companyViewModel;
-            });
+            var listedCompanies = this.companyService.GetPagedCompanies(id);
 
-            return View(companies);
+            return View(listedCompanies);
         }
     }
 }

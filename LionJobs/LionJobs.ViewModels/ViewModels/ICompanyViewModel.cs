@@ -12,5 +12,7 @@ namespace LionJobs.ViewModels
         string Description { get; set; }
 
         string UserImageUrl { get; set; }
+
+        byte[] UserImage { get; set; }
     }
 }

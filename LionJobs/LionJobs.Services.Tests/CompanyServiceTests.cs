@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using LionJobs.Data.Common;
 using LionJobs.Models;
 using Moq;
+using LionJobs.Services.Interfaces;
 
 namespace LionJobs.Services.Tests
 {
@@ -17,18 +18,22 @@ namespace LionJobs.Services.Tests
         [Test]
         public void Constructor_ShouldThrowWhenRepositoryIsNull()
         {
-            //Arrange,act,assert
-           Assert.Throws<ArgumentException>(() => new CompaniesService(null));
+            //Arrange
+            var mockedImageService = new Mock<IImageService>();
+
+            //Act,assert
+           Assert.Throws<ArgumentException>(() => new CompaniesService(null,mockedImageService.Object));
         }
 
         [Test]
         public void Constructor_ShouldReturnAnInstanceOfCompaniesService()
         {
             //Arrange
+            var mockedImageService = new Mock<IImageService>();
             var mockedRepository = new Mock<IEfRepository<Company>>();
 
             //Act
-            var service = new CompaniesService(mockedRepository.Object);
+            var service = new CompaniesService(mockedRepository.Object, mockedImageService.Object);
 
             //Assert
             Assert.IsInstanceOf<CompaniesService>(service);
@@ -39,15 +44,16 @@ namespace LionJobs.Services.Tests
         {
             //Arrange
             var mockedRepository = new Mock<IEfRepository<Company>>();
+            var mockedImageService = new Mock<IImageService>();
             var companies = new List<Company>()
             {
                 new Company {CompanyName="Name",Description="Description" },
                 new Company {CompanyName="Name",Description="Description" },
                 new Company {CompanyName="Name",Description="Description" }
-            };
+            }.AsQueryable();
 
-            mockedRepository.Setup(x => x.GetAll()).Returns(companies);
-            var service = new CompaniesService(mockedRepository.Object);
+            mockedRepository.Setup(x => x.GetAllQueryable).Returns(companies);
+            var service = new CompaniesService(mockedRepository.Object, mockedImageService.Object);
 
             //Act
             var result = service.GetCompanies();
