@@ -328,6 +328,7 @@
     <Content Include="Views\FindAJob\Apply.cshtml" />
     <Content Include="Views\ListedJobs\Index.cshtml" />
     <Content Include="Views\ListedJobs\Details.cshtml" />
+    <Content Include="Views\Shared\CompaniesPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

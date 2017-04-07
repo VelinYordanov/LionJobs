@@ -17,19 +17,19 @@ namespace LionJobs.Web.Controllers
         private readonly IEmployeeListViewModel model;
         private readonly IImageService imageService;
 
-        public EmployeesController(IEmployeeService service,IImageService imageService, IEmployeeListViewModel model)
+        public EmployeesController(IEmployeeService service, IImageService imageService, IEmployeeListViewModel model)
         {
-            if(service == null)
+            if (service == null)
             {
                 throw new ArgumentException("employee");
             }
 
-            if(imageService == null)
+            if (imageService == null)
             {
                 throw new ArgumentException("image");
             }
 
-            if(model == null)
+            if (model == null)
             {
                 throw new ArgumentException("viewmodel");
             }
@@ -43,12 +43,7 @@ namespace LionJobs.Web.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            var employees = this.employeeService.GetEmployees().Select(x =>
-            {
-                this.model.FullName = x.FirstName + " " + x.LastName;
-                this.model.UserImageUrl = this.imageService.ByteArrayToImageUrl(x.UserImage);
-                return this.model;
-            });         
+            var employees = this.employeeService.GetEmployeesList();
 
             return View(employees);
         }

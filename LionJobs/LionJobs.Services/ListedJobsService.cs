@@ -35,7 +35,7 @@ namespace LionJobs.Services
         {
             var company = this.companyRepository.GetById(Id);
 
-            var listedJobs = this.jobsRepository.GetAll()
+            var listedJobs = this.jobsRepository.GetAllQueryable
                 .Where(x => x.Company.CompanyName == company.CompanyName && 
                 x.Company.Description == company.Description);
 
@@ -66,11 +66,12 @@ namespace LionJobs.Services
 
         public void RemoveUserFromJobs(Employee employee,IUnitOfWork unitOfWork)
         {
-            this.jobsRepository.GetAll().Where(x => x.JobApplicants.Contains(employee)).Select(x =>
-              {
-                  x.JobApplicants.Remove(employee);
-                  return employee;
-              });
+            var jobs = this.jobsRepository.GetAllQueryable.Where(x => x.JobApplicants.Contains(employee));
+
+            foreach (var job in jobs)
+            {
+                job.JobApplicants.Remove(employee);
+            }
 
             unitOfWork.SaveChanges();
         }

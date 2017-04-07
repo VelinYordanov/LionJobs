@@ -25,9 +25,9 @@ namespace LionJobs.Web.Controllers
         }
 
         // GET: FindAJob
-        public ActionResult Index()
+        public ActionResult Index(int id = 1)
         {
-            var jobs = this.findAJobService.GetJobs();
+            var jobs = this.findAJobService.GetJobs(id);
             return View(jobs);
         }
 

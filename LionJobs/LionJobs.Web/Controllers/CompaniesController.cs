@@ -37,13 +37,18 @@ namespace LionJobs.Web.Controllers
             this.companyViewModel = companyViewModel;
         }
 
-        // GET: Companies
-        //[OutputCache(Duration =5*60)]
-        public ActionResult Index(int id = 1)
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [ChildActionOnly]
+        [OutputCache(Duration =5*60,VaryByParam ="id")]
+        public ActionResult CachedCompanies(int id = 1)
         {
             var listedCompanies = this.companyService.GetPagedCompanies(id);
 
-            return View(listedCompanies);
+            return PartialView("CompaniesPartialView",listedCompanies);
         }
     }
 }

@@ -128,6 +128,7 @@
     <Compile Include="ViewModels\ListedJobsViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\PagedCompanyViewModelList.cs" />
+    <Compile Include="ViewModels\PagedFindAJobList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

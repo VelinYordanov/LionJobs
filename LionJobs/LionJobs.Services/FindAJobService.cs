@@ -12,12 +12,13 @@ namespace LionJobs.Services
 {
     public class FindAJobService : IFindJobService
     {
+        private const int pageSize = 3;
         private IEfRepository<Job> jobRepository;
         private IEfRepository<Employee> employeeRepository;
-        private CompanyJobsViewModel jobsViewModel;
+        private PagedFindAJobList jobListModel;
         private IUnitOfWork unitOfWork;
 
-        public FindAJobService(IEfRepository<Job> jobRepository, IEfRepository<Employee> employeeRepository, CompanyJobsViewModel jobsViewModel,IUnitOfWork unitOfWork)
+        public FindAJobService(IEfRepository<Job> jobRepository, IEfRepository<Employee> employeeRepository, PagedFindAJobList jobListModel,IUnitOfWork unitOfWork)
         {
             if(jobRepository == null)
             {
@@ -29,11 +30,6 @@ namespace LionJobs.Services
                 throw new ArgumentException("employeerepository");
             }
 
-            if(jobsViewModel == null)
-            {
-                throw new ArgumentException("viewmodel");
-            }
-
             if(unitOfWork == null)
             {
                 throw new ArgumentException("unitofwork");
@@ -41,20 +37,44 @@ namespace LionJobs.Services
 
             this.jobRepository = jobRepository;
             this.employeeRepository = employeeRepository;
-            this.jobsViewModel = jobsViewModel;
+            this.jobListModel = jobListModel;
             this.unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<CompanyJobsViewModel> GetJobs()
+        public PagedFindAJobList GetJobs(int id)
         {
-            return this.jobRepository.GetAll().Select(x =>
+            var page = id;
+            var allJobs = this.jobRepository.GetAllQueryable.Count();
+            var allPages = (int)Math.Ceiling(allJobs / (decimal)pageSize);
+            var jobsData =  this.jobRepository.GetAllQueryable.Select(x => new
             {
-                this.jobsViewModel.Id = x.Id;
-                this.jobsViewModel.Title = x.Title;
-                this.jobsViewModel.Description = x.Description;
-                this.jobsViewModel.Tags = x.Tags;
-                return this.jobsViewModel;
-            });
+                x.Id,
+                x.Title,
+                x.Description,
+                x.Tags
+            }).OrderBy(x=>x.Id)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+
+            var jobs = new List<CompanyJobsViewModel>();
+
+            foreach (var job in jobsData)
+            {
+                var jobsViewModel = new CompanyJobsViewModel();
+                jobsViewModel.Id = job.Id;
+                jobsViewModel.Title = job.Title;
+                jobsViewModel.Description = job.Description;
+                jobsViewModel.Tags = job.Tags;
+                jobs.Add(jobsViewModel);
+            }
+
+            this.jobListModel.CurrentPage = page;
+            this.jobListModel.TotalPages = allPages;
+            this.jobListModel.Jobs = jobs;
+
+            return jobListModel;
         }
 
         public Job FindAJob(object id)

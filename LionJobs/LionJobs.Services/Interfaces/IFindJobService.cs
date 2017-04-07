@@ -10,7 +10,7 @@ namespace LionJobs.Services.Interfaces
 {
     public interface IFindJobService
     {
-        IEnumerable<CompanyJobsViewModel> GetJobs();
+        PagedFindAJobList GetJobs(int id);
 
         Job FindAJob(object id);
 
