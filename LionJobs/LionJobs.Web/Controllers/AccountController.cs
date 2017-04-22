@@ -26,15 +26,15 @@ namespace LionJobs.Web.Controllers
         
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private IImageService imageService;
+        private IImageService imageService;        
 
         public AccountController(IImageService imageService)
         {
             if(imageService == null)
             {
                 throw new ArgumentException("imageservice");
-            }
-
+            }     
+                        
             this.imageService = imageService;
         }
 

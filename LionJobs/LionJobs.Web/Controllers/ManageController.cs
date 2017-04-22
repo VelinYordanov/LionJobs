@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -7,6 +8,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using LionJobs.ViewModels;
+using LionJobs.Services.Interfaces;
+using LionJobs.Data.Common;
 
 namespace LionJobs.Web.Controllers
 {
@@ -15,9 +18,17 @@ namespace LionJobs.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IEmployeeService employeeService;
+        private ICompanyService companyService;
+        private IImageService imageService;
+        private IUnitOfWork unitOfWork;
 
-        public ManageController()
+        public ManageController(IEmployeeService employeeService, ICompanyService companyService, IImageService imageService, IUnitOfWork unitOfWork)
         {
+            this.employeeService = employeeService;
+            this.imageService = imageService;
+            this.companyService = companyService;
+            this.unitOfWork = unitOfWork;
         }
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -32,9 +43,9 @@ namespace LionJobs.Web.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -52,27 +63,154 @@ namespace LionJobs.Web.Controllers
 
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public ActionResult Index()
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
-
             var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+
+            if (User.IsInRole("Employee"))
+            {                
+                var employee = this.employeeService.GetEmployee(userId);
+                var employeeModel = this.employeeService.Employee2ProfileViewModel(employee);
+
+                return View("EmployeeProfile",employeeModel);
+            }
+
+            var company = this.companyService.GetCompany(userId);
+            var companyModel = this.companyService.Company2CompanyProfileViewModel(company);
+
+            return View("CompanyProfile", companyModel);
+            
+            //ViewBag.StatusMessage =
+            //    message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+            //    : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+            //    : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
+            //    : message == ManageMessageId.Error ? "An error has occurred."
+            //    : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+            //    : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+            //    : "";
+
+            //var userId = User.Identity.GetUserId();
+            //var model = new IndexViewModel
+            //{
+            //    HasPassword = HasPassword(),
+            //    PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+            //    TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+            //    Logins = await UserManager.GetLoginsAsync(userId),
+            //    BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+            //};
+            //return View(model);
+        }
+
+        [Authorize(Roles = "Employee")]
+        public ActionResult LoadEmployeeHistory()
+        {
+            var userId = User.Identity.GetUserId();
+            var employee = this.employeeService.GetEmployee(userId);
+            var history = employee.JobHistory.Select(x => new JobHistoryViewModel
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            };
-            return View(model);
+                CompanyName = x.Company.CompanyName,
+                Description = x.Description,
+                Title = x.Title
+            });
+
+            return PartialView("_JobHistoryView", history);
+        }
+
+        [HttpPost]
+        public ActionResult ImageUpload(HttpPostedFileBase postedFile)
+        {
+           if(postedFile == null)
+            {
+                throw new ArgumentException("No file uploaded!");
+            }
+
+            if(postedFile.ContentType != "image/jpeg")
+            {
+                throw new ArgumentException("Only jpeg images are allowed.");
+            }
+
+            if(postedFile.ContentLength > 3 * 1024 * 1024)
+            {
+                throw new ArgumentException("Cannot be more than 3 mbs");
+            }
+
+            var imageArray = this.imageService.GetByteArrayFromStream(postedFile.InputStream);
+            var userId = User.Identity.GetUserId();
+            if(User.IsInRole("Employee"))
+            {
+                var user = this.employeeService.GetEmployee(userId);
+                user.UserImage = imageArray;
+                this.unitOfWork.SaveChanges();
+            }
+            else
+            {
+                var user = this.companyService.GetCompany(userId);
+                user.UserImage = imageArray;
+                this.unitOfWork.SaveChanges();
+            }
+            
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles ="Company")]
+        [HttpPost]
+        public ActionResult EditDescription(string description)
+        {
+            if(description.Length < 30 || description.Length > 300)
+            {
+                throw new ArgumentException("description length");
+            }
+            var userId = User.Identity.GetUserId();
+            var user = this.companyService.GetCompany(userId);
+            user.Description = description;
+            this.unitOfWork.SaveChanges();
+
+            var companyModel = this.companyService.Company2CompanyProfileViewModel(user);
+            return View("CompanyProfile", companyModel);
+        }
+
+        [Authorize(Roles = "Employee")]
+        [HttpPost]
+        public ActionResult CvUpload(HttpPostedFileBase postedFile)
+        {
+            if (postedFile == null)
+            {
+                throw new ArgumentException("No file uploaded!");
+            }
+
+            if (postedFile.ContentType != "application/pdf")
+            {
+                throw new ArgumentException("Only pdf files are allowed.");
+            }
+
+            if (postedFile.ContentLength > 3 * 1024 * 1024)
+            {
+                throw new ArgumentException("Cannot be more than 3 mbs");
+            }
+
+            var pdfBytes = this.imageService.GetByteArrayFromStream(postedFile.InputStream);
+            var userId = User.Identity.GetUserId();
+            var user = this.employeeService.GetEmployee(userId);
+            user.Cv = pdfBytes;
+            this.unitOfWork.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public FileResult DownloadCv()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = this.employeeService.GetEmployee(userId);
+            var userCv = user.Cv;
+
+            if(userCv == null)
+            {
+                throw new ArgumentException("No CV provided.");
+            }
+
+            var fileName = user.Email + " CV.pdf";
+
+            return File(userCv, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
         //
@@ -333,7 +471,7 @@ namespace LionJobs.Web.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +522,6 @@ namespace LionJobs.Web.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

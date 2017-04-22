@@ -12,6 +12,10 @@ namespace LionJobs.Services.Interfaces
     {
         IQueryable<Company> GetCompanies();
 
+        Company GetCompany(object id);
+
+        CompanyProfileViewModel Company2CompanyProfileViewModel(Company company);
+
         PagedCompanyViewModelList GetPagedCompanies(int page);
     }
 }

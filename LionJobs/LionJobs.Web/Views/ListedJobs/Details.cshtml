@@ -1,12 +1,13 @@
-﻿@model LionJobs.Models.Employee
+﻿@model LionJobs.ViewModels.EmployeeHireViewModel
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Do you want to hire @Model.FirstName @Model.LastName for this job?</h2>
+<h2>Do you want to hire @Model.FullName for this job?</h2>
 @using (Html.BeginForm("Details", "ListedJobs", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.EmployeeId)
+    @Html.HiddenFor(m => m.JobId)
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Yes" />

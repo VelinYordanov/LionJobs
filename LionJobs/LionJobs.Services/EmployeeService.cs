@@ -75,5 +75,14 @@ namespace LionJobs.Services
 
             return model;
         }
+
+        public ProfileEmployeeViewModel Employee2ProfileViewModel(Employee employee)
+        {
+            return new ProfileEmployeeViewModel
+            {
+                FullName = employee.FirstName + " " + employee.LastName,
+                ImageUrl = this.imageService.ByteArrayToImageUrl(employee.UserImage)
+            };
+        }
     }
 }

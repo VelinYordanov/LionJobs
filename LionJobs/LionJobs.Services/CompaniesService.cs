@@ -35,6 +35,21 @@ namespace LionJobs.Services
             return this.repository.GetAllQueryable;
         }
 
+        public Company GetCompany(object id)
+        {
+            return this.repository.GetById(id);
+        }
+
+        public CompanyProfileViewModel Company2CompanyProfileViewModel(Company company)
+        {
+            return new CompanyProfileViewModel
+            {
+                CompanyName = company.CompanyName,
+                Description = company.Description,
+                ImageUrl = this.imageService.ByteArrayToImageUrl(company.UserImage)
+            };
+        }
+
         public PagedCompanyViewModelList GetPagedCompanies(int page)
         {
             var maxPages = (int)Math.Ceiling(this.GetCompanies().Count() / (double)ItemsPerPage);

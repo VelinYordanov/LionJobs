@@ -113,7 +113,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\CompanyProfileViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeHireModel.cs" />
+    <Compile Include="ViewModels\IdModel.cs" />
     <Compile Include="ViewModels\JobCandidateViewModel.cs" />
+    <Compile Include="ViewModels\JobHistoryViewModel.cs" />
     <Compile Include="ViewModels\JobIdViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -129,6 +133,7 @@
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\PagedCompanyViewModelList.cs" />
     <Compile Include="ViewModels\PagedFindAJobList.cs" />
+    <Compile Include="ViewModels\ProfileEmployeeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

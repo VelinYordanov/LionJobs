@@ -1,5 +1,6 @@
 ﻿using LionJobs.Data.Common;
 using LionJobs.Services.Interfaces;
+using LionJobs.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace LionJobs.Web.Controllers
 {
-    [Authorize(Roles ="Company")]
+    [Authorize(Roles = "Company")]
     public class ListedJobsController : Controller
     {
         private IListedJobsService jobsService;
@@ -18,17 +19,17 @@ namespace LionJobs.Web.Controllers
 
         public ListedJobsController(IListedJobsService jobsService, IEmployeeService employeeService, IUnitOfWork unitOfWork)
         {
-            if(jobsService == null)
+            if (jobsService == null)
             {
                 throw new ArgumentException("jobservice");
             }
 
-            if(employeeService == null)
+            if (employeeService == null)
             {
                 throw new ArgumentException("employeeservice");
             }
 
-            if(unitOfWork == null)
+            if (unitOfWork == null)
             {
                 throw new ArgumentException("unitofwork");
             }
@@ -48,19 +49,29 @@ namespace LionJobs.Web.Controllers
             return View(jobsDto);
         }
 
-        
-        public ActionResult Details(string Id)
+
+        public ActionResult Details(string id, string job)
         {
-            var employee = this.employeeService.GetEmployee(Id);
-            return View(employee);
+            var jobid = job;
+            var employee = this.employeeService.GetEmployee(id);
+            var employeeModel = new EmployeeHireViewModel
+            {
+                EmployeeId = id,
+                JobId = job,
+                FullName = employee.FirstName + " " + employee.LastName
+            };
+
+            return View(employeeModel);
         }
 
         [HttpPost]
-        public ActionResult Details(Guid id)
+        public ActionResult Details(IdModel ids)
         {
-            var employeeId = id.ToString();
+            var jobId = ids.JobId;
+            var employeeId = ids.EmployeeId.ToString();
             var employee = this.employeeService.GetEmployee(employeeId);
-            this.jobsService.RemoveUserFromJobs(employee,this.unitOfWork);
+            var job = this.jobsService.GetJob(jobId);
+            this.jobsService.RemoveUserFromJobs(employee, job);
 
             return RedirectToAction("Index", "Home");
         }

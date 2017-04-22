@@ -14,8 +14,9 @@ namespace LionJobs.Services
     {
         private IEfRepository<Job> jobsRepository;
         private IEfRepository<Company> companyRepository;
+        private IUnitOfWork unitOfWork;
 
-        public ListedJobsService(IEfRepository<Job> jobsRepository, IEfRepository<Company> companyRepository)
+        public ListedJobsService(IEfRepository<Job> jobsRepository, IEfRepository<Company> companyRepository,IUnitOfWork unitOfWork)
         {
             if(jobsRepository == null)
             {
@@ -29,6 +30,7 @@ namespace LionJobs.Services
 
             this.jobsRepository = jobsRepository;
             this.companyRepository = companyRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public IEnumerable<Job> GetJobs(object Id)
@@ -64,16 +66,18 @@ namespace LionJobs.Services
             return this.jobsRepository.GetById(Id);
         }
 
-        public void RemoveUserFromJobs(Employee employee,IUnitOfWork unitOfWork)
+        public void RemoveUserFromJobs(Employee employee,Job job)
         {
-            var jobs = this.jobsRepository.GetAllQueryable.Where(x => x.JobApplicants.Contains(employee));
-
-            foreach (var job in jobs)
+            if(!job.JobApplicants.Contains(employee))
             {
-                job.JobApplicants.Remove(employee);
+                throw new ArgumentException("The employee did not apply for the job.");
             }
 
-            unitOfWork.SaveChanges();
+            employee.JobHistory.Add(job);
+
+            job.JobApplicants.Remove(employee);            
+
+            this.unitOfWork.SaveChanges();
         }
     }
 }

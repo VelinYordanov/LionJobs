@@ -242,6 +242,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\companies.css" />
     <Content Include="Content\materialize.min.css" />
+    <Content Include="Content\profile.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -328,7 +329,10 @@
     <Content Include="Views\FindAJob\Apply.cshtml" />
     <Content Include="Views\ListedJobs\Index.cshtml" />
     <Content Include="Views\ListedJobs\Details.cshtml" />
-    <Content Include="Views\Shared\CompaniesPartialView.cshtml" />
+    <Content Include="Views\Shared\_CompaniesPartialView.cshtml" />
+    <Content Include="Views\Shared\_JobHistoryView.cshtml" />
+    <Content Include="Views\Manage\EmployeeProfile.cshtml" />
+    <Content Include="Views\Manage\CompanyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

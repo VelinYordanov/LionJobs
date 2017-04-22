@@ -17,6 +17,6 @@ namespace LionJobs.Services.Interfaces
 
         Job GetJob(object Id);
 
-        void RemoveUserFromJobs(Employee employee,IUnitOfWork unitOfWork);
+        void RemoveUserFromJobs(Employee employee, Job job);
     }
 }

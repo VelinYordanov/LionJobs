@@ -11,6 +11,7 @@ namespace LionJobs.Models
             this.Id = Guid.NewGuid();
             this.Tags = new HashSet<Tag>();
             this.JobApplicants = new HashSet<Employee>();
+            this.EmployeeHistory = EmployeeHistory;
         }
 
         public Guid Id { get; set; }
@@ -30,5 +31,7 @@ namespace LionJobs.Models
         public virtual Company Company { get; set; }
 
         public virtual ICollection<Employee> JobApplicants { get; set; }
+
+        public virtual ICollection<Employee> EmployeeHistory { get; set; }
     }
 }

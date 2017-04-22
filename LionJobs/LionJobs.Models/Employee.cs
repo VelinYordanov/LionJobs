@@ -11,8 +11,8 @@ namespace LionJobs.Models
     {
         public Employee()
         {
-            this.JobHistory = new HashSet<Job>();
             this.JobApplications = new HashSet<Job>();
+            this.JobHistory = new HashSet<Job>();
         }
 
         [Required(ErrorMessage ="First name is required.")]

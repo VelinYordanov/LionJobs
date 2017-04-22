@@ -48,7 +48,7 @@ namespace LionJobs.Web.Controllers
         {
             var listedCompanies = this.companyService.GetPagedCompanies(id);
 
-            return PartialView("CompaniesPartialView",listedCompanies);
+            return PartialView("_CompaniesPartialView",listedCompanies);
         }
     }
 }

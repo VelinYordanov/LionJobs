@@ -17,5 +17,7 @@ namespace LionJobs.Services.Interfaces
         JobCandidateViewModel MapModel(string employeeId, Employee employee, Guid jobId);
 
         IEnumerable<IEmployeeListViewModel> GetEmployeesList();
+
+        ProfileEmployeeViewModel Employee2ProfileViewModel(Employee employee);
     }
 }
