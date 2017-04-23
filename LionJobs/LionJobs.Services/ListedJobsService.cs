@@ -78,6 +78,6 @@ namespace LionJobs.Services
             job.JobApplicants.Remove(employee);            
 
             this.unitOfWork.SaveChanges();
-        }
+        }        
     }
 }

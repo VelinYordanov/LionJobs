@@ -15,5 +15,9 @@ namespace LionJobs.Services.Interfaces
         Job FindAJob(object id);
 
         void AddCandidate(object employeeId, Job job);
+
+        JobDescriptionViewModel GetJobDescriptionModel(Company company, Job job);
+
+         Company GetJobCompany(Guid id);
     }
 }

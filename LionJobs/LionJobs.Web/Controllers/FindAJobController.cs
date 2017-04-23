@@ -9,19 +9,23 @@ using System.Web.Mvc;
 
 namespace LionJobs.Web.Controllers
 {
-    [Authorize(Roles ="Employee")]
+    [Authorize(Roles = "Employee")]
     public class FindAJobController : Controller
     {
-        private IFindJobService findAJobService;
+        private readonly IFindJobService findAJobService;
+        private readonly IEmployeeService employeeService;
+        private readonly ICompanyService companyService;
 
-        public FindAJobController(IFindJobService findAJobService)
+        public FindAJobController(IFindJobService findAJobService, IEmployeeService employeeService, ICompanyService companyService)
         {
-            if(findAJobService == null)
+            if (findAJobService == null)
             {
                 throw new ArgumentException("jobservice");
             }
 
             this.findAJobService = findAJobService;
+            this.employeeService = employeeService;
+            this.companyService = companyService;
         }
 
         // GET: FindAJob
@@ -36,7 +40,6 @@ namespace LionJobs.Web.Controllers
         {
             if (User.IsInRole("Employee"))
             {
-                var id = Request["hidden"];
                 var employee = User.Identity.GetUserId();
                 var job = this.findAJobService.FindAJob(model.JobId);
                 this.findAJobService.AddCandidate(employee, job);
@@ -46,11 +49,25 @@ namespace LionJobs.Web.Controllers
             return View();
         }
 
-        public ActionResult Apply(string Id)
+        public ActionResult Apply(string id)
         {
-            var jobId = new Guid(Id);
+            var userId = User.Identity.GetUserId();
+            var user = this.employeeService.GetEmployee(userId);
+            if (user.Cv == null)
+            {
+                throw new ArgumentException("You need to have a CV to apply for a job");
+            }
+
+            var jobId = new Guid(id);
             var job = this.findAJobService.FindAJob(jobId);
-            return View(job);
+
+            if(job.JobApplicants.Contains(user))
+            {
+                throw new ArgumentException("Already applied for job!");
+            }
+            var company = this.findAJobService.GetJobCompany(jobId);
+            var jobModel = this.findAJobService.GetJobDescriptionModel(company, job);
+            return View(jobModel);
         }
 
         [HttpPost]

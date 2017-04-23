@@ -16,8 +16,9 @@ namespace LionJobs.Web.Controllers
         private IListedJobsService jobsService;
         private IEmployeeService employeeService;
         private IUnitOfWork unitOfWork;
+        private IImageService imageService;
 
-        public ListedJobsController(IListedJobsService jobsService, IEmployeeService employeeService, IUnitOfWork unitOfWork)
+        public ListedJobsController(IListedJobsService jobsService, IEmployeeService employeeService, IUnitOfWork unitOfWork,IImageService imageService)
         {
             if (jobsService == null)
             {
@@ -37,6 +38,7 @@ namespace LionJobs.Web.Controllers
             this.jobsService = jobsService;
             this.employeeService = employeeService;
             this.unitOfWork = unitOfWork;
+            this.imageService = imageService;
         }
 
         // GET: ListedJobs
@@ -58,7 +60,10 @@ namespace LionJobs.Web.Controllers
             {
                 EmployeeId = id,
                 JobId = job,
-                FullName = employee.FirstName + " " + employee.LastName
+                FullName = employee.FirstName + " " + employee.LastName,
+                Cv = employee.Cv,
+                UserImage = this.imageService.ByteArrayToImageUrl(employee.UserImage),
+                JobHistory = employee.JobHistory
             };
 
             return View(employeeModel);

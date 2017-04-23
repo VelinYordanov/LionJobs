@@ -117,6 +117,7 @@
     <Compile Include="ViewModels\EmployeeHireModel.cs" />
     <Compile Include="ViewModels\IdModel.cs" />
     <Compile Include="ViewModels\JobCandidateViewModel.cs" />
+    <Compile Include="ViewModels\JobDescriptionViewModel.cs" />
     <Compile Include="ViewModels\JobHistoryViewModel.cs" />
     <Compile Include="ViewModels\JobIdViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

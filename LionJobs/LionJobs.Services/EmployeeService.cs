@@ -11,11 +11,10 @@ namespace LionJobs.Services
     public class EmployeesService : IEmployeeService
     {
         private IEfRepository<Employee> repository;
-        private IEmployeeListViewModel model;
         private IImageService imageService;
         private IUnitOfWork unitOfWork;
 
-        public EmployeesService(IEfRepository<Employee> repository, IUnitOfWork unitOfWork, IImageService imageService, IEmployeeListViewModel model)
+        public EmployeesService(IEfRepository<Employee> repository, IUnitOfWork unitOfWork, IImageService imageService)
         {
             if(repository == null)
             {
@@ -30,7 +29,6 @@ namespace LionJobs.Services
             this.repository = repository;
             this.unitOfWork = unitOfWork;
             this.imageService = imageService;
-            this.model = model;
         }
 
         public IQueryable<Employee> GetEmployees()
@@ -51,9 +49,13 @@ namespace LionJobs.Services
 
             foreach (var item in employeesData)
             {
-                this.model.FullName = item.FirstName + " " + item.LastName;
-                this.model.UserImageUrl = this.imageService.ByteArrayToImageUrl(item.UserImage);
-                employees.Add(this.model);
+                var employee = new EmployeesListViewModel
+                {
+                    FullName = item.FirstName + " " + item.LastName,
+                    UserImageUrl = this.imageService.ByteArrayToImageUrl(item.UserImage)
+                };
+                
+                employees.Add(employee);
             }
 
             return employees;

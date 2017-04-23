@@ -197,10 +197,14 @@ namespace LionJobs.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public FileResult DownloadCv()
+        public FileResult DownloadCv(string id)
         {
-            var userId = User.Identity.GetUserId();
-            var user = this.employeeService.GetEmployee(userId);
+            if(id == null)
+            {
+                id = User.Identity.GetUserId();
+            }
+
+            var user = this.employeeService.GetEmployee(id);
             var userCv = user.Cv;
 
             if(userCv == null)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LionJobs.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,11 @@ namespace LionJobs.ViewModels
         public string JobId { get; set; }
 
         public string FullName { get; set; }
+
+        public ICollection<Job> JobHistory { get; set; }
+
+        public byte[] Cv { get; set; }
+
+        public string UserImage { get; set; }
     }
 }

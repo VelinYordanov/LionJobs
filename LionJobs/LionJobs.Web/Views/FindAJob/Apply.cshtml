@@ -1,22 +1,36 @@
-﻿@model LionJobs.Models.Job
-@{
-    ViewBag.Title = "Apply";
+﻿@model LionJobs.ViewModels.JobDescriptionViewModel
+
+@section styles {
+    @Styles.Render("~/Content/profile.css");
 }
-
-<h3>Are you sure you want to apply for job:</h3>
-
-<h4>@Model.Title</h4>
-<h5>@Model.Description</h5>
-@using (Html.BeginForm("Apply", "FindAJob", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.HiddenFor(m => m.Id)
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Apply" />
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">@Model.CompanyName</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="@Model.CompanyImage" class="img-circle img-responsive"> </div>
+            <div class="col-md-9 col-lg-9">
+                <h4>@Model.Title</h4>
+                <p>@Model.Description</p>
+            </div>
         </div>
     </div>
-}
+</div>
+<div class="row">
+    <h5>Are you sure you want to apply for this job?</h5>
+    @using (Html.BeginForm("Apply", "FindAJob", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Apply" />
+            </div>
+        </div>
+    }
+</div>
+
 
 
 

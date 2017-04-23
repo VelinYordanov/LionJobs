@@ -17,8 +17,9 @@ namespace LionJobs.Services
         private IEfRepository<Employee> employeeRepository;
         private PagedFindAJobList jobListModel;
         private IUnitOfWork unitOfWork;
+        private IImageService imageService;
 
-        public FindAJobService(IEfRepository<Job> jobRepository, IEfRepository<Employee> employeeRepository, PagedFindAJobList jobListModel,IUnitOfWork unitOfWork)
+        public FindAJobService(IEfRepository<Job> jobRepository, IEfRepository<Employee> employeeRepository, PagedFindAJobList jobListModel,IUnitOfWork unitOfWork,IImageService imageService)
         {
             if(jobRepository == null)
             {
@@ -38,6 +39,7 @@ namespace LionJobs.Services
             this.jobRepository = jobRepository;
             this.employeeRepository = employeeRepository;
             this.jobListModel = jobListModel;
+            this.imageService = imageService;
             this.unitOfWork = unitOfWork;
         }
 
@@ -87,6 +89,23 @@ namespace LionJobs.Services
             var user = this.employeeRepository.GetById(employeeId);
             job.JobApplicants.Add(user);
             this.unitOfWork.SaveChanges();
+        }
+
+        public JobDescriptionViewModel GetJobDescriptionModel(Company company,Job job)
+        {
+            return new JobDescriptionViewModel
+            {
+                CompanyImage = this.imageService.ByteArrayToImageUrl(company.UserImage),
+                CompanyName = company.CompanyName,
+                Id = job.Id,
+                Description = job.Description,
+                Title = job.Title
+            };
+        }
+
+        public Company GetJobCompany(Guid id)
+        {
+            return this.jobRepository.GetAllQueryable.Where(x => x.Id == id).Select(x => x.Company).FirstOrDefault();
         }
     }
 }

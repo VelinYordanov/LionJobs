@@ -1,19 +1,57 @@
 ﻿@model LionJobs.ViewModels.EmployeeHireViewModel
-@{
-    ViewBag.Title = "Details";
-}
 
-<h2>Do you want to hire @Model.FullName for this job?</h2>
-@using (Html.BeginForm("Details", "ListedJobs", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.HiddenFor(m => m.EmployeeId)
-    @Html.HiddenFor(m => m.JobId)
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Yes" />
+
+@section styles {
+    @Styles.Render("~/Content/profile.css");
+}
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">@Model.FullName</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="@Model.UserImage" class="img-circle img-responsive"> </div>
+            <div class="col-md-9 col-lg-9">
+                <h6>Job History</h6>
+                @if (Model.JobHistory == null)
+                {
+                    <h5>No job history</h5>
+                }
+                else
+                {
+                    <div id="job-history">
+                        <ul class="list-group">
+                            @foreach (var job in Model.JobHistory)
+                            {
+                                <li class="list-group-item">
+                                    <span>@job.Company.CompanyName</span>
+                                    <span class="pull-right"> @job.Title</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.ActionLink("Download the employee's CV", "DownloadCv", "Manage", new { id = Model.EmployeeId }, new { @class = "btn btn-success" })
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-}
-
-
-
+    <div class="row">
+        <div class="col-md-offset-3">
+            <h5>Hire @Model.FullName for the job</h5>
+            @using (Html.BeginForm("Details", "ListedJobs", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.HiddenFor(m => m.EmployeeId)
+                @Html.HiddenFor(m => m.JobId)
+                <div class="form-group">
+                    <div class="col-md-offset-1">
+                        <input type="submit" class="btn btn-default" value="Yes" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
