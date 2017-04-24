@@ -55,7 +55,8 @@ namespace LionJobs.Web.Controllers
             var user = this.employeeService.GetEmployee(userId);
             if (user.Cv == null)
             {
-                throw new ArgumentException("You need to have a CV to apply for a job");
+                this.TempData["Error"] = "You need to have a CV to apply for a job!";
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
             var jobId = new Guid(id);
@@ -63,7 +64,8 @@ namespace LionJobs.Web.Controllers
 
             if(job.JobApplicants.Contains(user))
             {
-                throw new ArgumentException("Already applied for job!");
+                this.TempData["Error"] = "Already applied for the job!";
+                return Redirect(Request.UrlReferrer.ToString());
             }
             var company = this.findAJobService.GetJobCompany(jobId);
             var jobModel = this.findAJobService.GetJobDescriptionModel(company, job);
@@ -79,6 +81,8 @@ namespace LionJobs.Web.Controllers
                 var employeeId = User.Identity.GetUserId();
                 var job = this.findAJobService.FindAJob(jobId);
                 this.findAJobService.AddCandidate(employeeId, job);
+
+                this.TempData["Success"] = "Successfully applied for the job!";
                 return RedirectToAction("Index", "Home");
             }
 

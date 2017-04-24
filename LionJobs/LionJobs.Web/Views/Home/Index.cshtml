@@ -2,6 +2,16 @@
     ViewBag.Title = "Home Page";
 }
 
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger collapse" id="warning">@TempData["Error"]</div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success collapse" id="success">@TempData["Success"]</div>
+}
+
 <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
         <div class="container">
@@ -46,3 +56,7 @@
         </div>
     </div>
 </div>
+@section scripts
+{
+    @Scripts.Render("~/Scripts/tempData-notifications.js");
+}

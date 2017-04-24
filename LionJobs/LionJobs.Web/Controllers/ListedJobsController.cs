@@ -18,7 +18,7 @@ namespace LionJobs.Web.Controllers
         private IUnitOfWork unitOfWork;
         private IImageService imageService;
 
-        public ListedJobsController(IListedJobsService jobsService, IEmployeeService employeeService, IUnitOfWork unitOfWork,IImageService imageService)
+        public ListedJobsController(IListedJobsService jobsService, IEmployeeService employeeService, IUnitOfWork unitOfWork, IImageService imageService)
         {
             if (jobsService == null)
             {
@@ -78,6 +78,7 @@ namespace LionJobs.Web.Controllers
             var job = this.jobsService.GetJob(jobId);
             this.jobsService.RemoveUserFromJobs(employee, job);
 
+            this.TempData["Success"] = "Successfully hired employee " + employee.FirstName + " " + employee.LastName;
             return RedirectToAction("Index", "Home");
         }
     }

@@ -18,7 +18,7 @@ namespace LionJobs.Models
 
         [Required(ErrorMessage ="Job title is required.")]
         [MinLength(5,ErrorMessage ="Job title cannot be less than 5 symbols long.")]
-        [MaxLength(15,ErrorMessage ="Job title cannot be longer than 15 symbols.")]
+        [MaxLength(30,ErrorMessage ="Job title cannot be longer than 30 symbols.")]
         public string Title { get; set; }
 
         [Required(ErrorMessage ="Job description is required.")]

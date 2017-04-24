@@ -3,6 +3,16 @@
     ViewBag.Title = "Index";
 }
 
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger collapse" id="warning">@TempData["Error"]</div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success collapse" id="success">@TempData["Success"]</div>
+}
+
 <div class="container">
     <h4>Available jobs:</h4>
     @foreach (var job in Model.Jobs)
@@ -51,3 +61,8 @@
             }            
         </ul>
 </div>
+
+@section scripts 
+    {
+        @Scripts.Render("~/Scripts/tempData-notifications.js");
+    }

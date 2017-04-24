@@ -121,17 +121,20 @@ namespace LionJobs.Web.Controllers
         {
            if(postedFile == null)
             {
-                throw new ArgumentException("No file uploaded!");
+                this.TempData["Error"] = "No file uploaded!";
+                return RedirectToAction("Index");
             }
 
             if(postedFile.ContentType != "image/jpeg")
             {
-                throw new ArgumentException("Only jpeg images are allowed.");
+                this.TempData["Error"] = "Only jpeg images are allowed!";
+                return RedirectToAction("Index");
             }
 
             if(postedFile.ContentLength > 3 * 1024 * 1024)
             {
-                throw new ArgumentException("Cannot be more than 3 mbs");
+                this.TempData["Error"] = "Cannot be more than 3 MBs!";
+                return RedirectToAction("Index");
             }
 
             var imageArray = this.imageService.GetByteArrayFromStream(postedFile.InputStream);
@@ -148,7 +151,8 @@ namespace LionJobs.Web.Controllers
                 user.UserImage = imageArray;
                 this.unitOfWork.SaveChanges();
             }
-            
+
+            this.TempData["Success"] = "Picture updated successfully";
             return RedirectToAction("Index");
         }
 
@@ -156,16 +160,21 @@ namespace LionJobs.Web.Controllers
         [HttpPost]
         public ActionResult EditDescription(string description)
         {
-            if(description.Length < 30 || description.Length > 300)
-            {
-                throw new ArgumentException("description length");
-            }
             var userId = User.Identity.GetUserId();
             var user = this.companyService.GetCompany(userId);
+
+            if (description.Length < 30 || description.Length > 300)
+            {
+                this.TempData["Error"] = "Description length must be between 30 and 300 symbols long.";
+                var model = this.companyService.Company2CompanyProfileViewModel(user);
+                return View("CompanyProfile", model);
+            }
+
             user.Description = description;
             this.unitOfWork.SaveChanges();
 
             var companyModel = this.companyService.Company2CompanyProfileViewModel(user);
+            this.TempData["Success"] = "Description changed succesfuly";
             return View("CompanyProfile", companyModel);
         }
 
@@ -175,17 +184,20 @@ namespace LionJobs.Web.Controllers
         {
             if (postedFile == null)
             {
-                throw new ArgumentException("No file uploaded!");
+                this.TempData["Error"] = "No file uploaded!";
+                return RedirectToAction("Index");
             }
 
             if (postedFile.ContentType != "application/pdf")
             {
-                throw new ArgumentException("Only pdf files are allowed.");
+                this.TempData["Error"] = "Only pdf files are allowed";
+                return RedirectToAction("Index");
             }
 
             if (postedFile.ContentLength > 3 * 1024 * 1024)
             {
-                throw new ArgumentException("Cannot be more than 3 mbs");
+                this.TempData["Error"] = "Cannot be more than 3 MBs";
+                return RedirectToAction("Index");
             }
 
             var pdfBytes = this.imageService.GetByteArrayFromStream(postedFile.InputStream);
@@ -194,10 +206,11 @@ namespace LionJobs.Web.Controllers
             user.Cv = pdfBytes;
             this.unitOfWork.SaveChanges();
 
+            this.TempData["Success"] = "CV uploaded successffully";
             return RedirectToAction("Index");
         }
 
-        public FileResult DownloadCv(string id)
+        public ActionResult DownloadCv(string id)
         {
             if(id == null)
             {
@@ -209,7 +222,8 @@ namespace LionJobs.Web.Controllers
 
             if(userCv == null)
             {
-                throw new ArgumentException("No CV provided.");
+                this.TempData["Error"] = "No CV provided";
+                return RedirectToAction("Index");
             }
 
             var fileName = user.Email + " CV.pdf";

@@ -7,20 +7,30 @@
         <h3 class="panel-title">@Model.CompanyName</h3>
     </div>
     <div class="panel-body">
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger collapse" id="warning">@TempData["Error"]</div>
+        }
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success collapse" id="success">@TempData["Success"]</div>
+        }
+
         <div class="row">
             <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="@Model.ImageUrl" class="img-circle img-responsive"> </div>
             <div class="col-md-6 col-lg-6">
-               <div>
-                   <p>@Model.Description</p>
-                   <button class="btn btn-primary" id="edit-button">Edit Description</button>
-                   <div class="collapse" id="edit">
-                       @using (Html.BeginForm("EditDescription","Manage",FormMethod.Post))
-                       {
-                           @Html.TextAreaFor(x=>x.Description,new { @class = "form-control",@rows='5',@name="description"})
-                           <input type="submit" class="btn btn-success" value="Edit" />
-                       }
-                   </div>
-               </div>
+                <div>
+                    <p>@Model.Description</p>
+                    <button class="btn btn-primary" id="edit-button">Edit Description</button>
+                    <div class="collapse" id="edit">
+                        @using (Html.BeginForm("EditDescription", "Manage", FormMethod.Post))
+                        {
+                            @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @rows = '5', @name = "description" })
+                            <input type="submit" class="btn btn-success" value="Edit" />
+                        }
+                    </div>
+                </div>
             </div>
         </div>
         <br />
@@ -39,9 +49,10 @@
     <script>
         $('#edit-button').on('click', () => {
             $('#edit').toggle(500);
-        })
+        });        
     </script>
-    }
+    @Scripts.Render("~/Scripts/tempData-notifications.js");
+}
 
 
 
