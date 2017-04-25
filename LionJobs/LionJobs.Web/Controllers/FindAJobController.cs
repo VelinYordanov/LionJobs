@@ -23,6 +23,16 @@ namespace LionJobs.Web.Controllers
                 throw new ArgumentException("jobservice");
             }
 
+            if(employeeService == null)
+            {
+                throw new ArgumentException("employeeservice");
+            }
+
+            if(companyService == null)
+            {
+                throw new ArgumentException("companyservice");
+            }
+
             this.findAJobService = findAJobService;
             this.employeeService = employeeService;
             this.companyService = companyService;

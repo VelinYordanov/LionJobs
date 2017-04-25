@@ -26,7 +26,7 @@ namespace LionJobs.Web.Controllers
 
             if (imageService == null)
             {
-                throw new ArgumentException("image");
+                throw new ArgumentException("imageservice");
             }
 
             if (model == null)

@@ -1,5 +1,6 @@
 ﻿using LionJobs.Data.Common;
 using LionJobs.Models;
+using LionJobs.Services.Interfaces;
 using LionJobs.ViewModels;
 using Moq;
 using NUnit.Framework;
@@ -20,11 +21,12 @@ namespace LionJobs.Services.Tests
             //Arrange
             var mockedJob = new Mock<IEfRepository<Job>>();
             var mockedEmployees = new Mock<IEfRepository<Employee>>();
-            var viewModel = new Mock<CompanyJobsViewModel>();
+            var viewModel = new Mock<PagedFindAJobList>();
             var unit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
 
             //Act
-            var ex = Assert.Throws<ArgumentException>(() => new FindAJobService(null, mockedEmployees.Object, viewModel.Object, unit.Object));
+            var ex = Assert.Throws<ArgumentException>(() => new FindAJobService(null, mockedEmployees.Object, viewModel.Object, unit.Object,mockedImageService.Object));
 
             Assert.That(ex.Message.Contains("job"));
         }
@@ -35,11 +37,12 @@ namespace LionJobs.Services.Tests
             //Arrange
             var mockedJob = new Mock<IEfRepository<Job>>();
             var mockedEmployees = new Mock<IEfRepository<Employee>>();
-            var viewModel = new Mock<CompanyJobsViewModel>();
+            var viewModel = new Mock<PagedFindAJobList>();
             var unit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
 
             //Act
-            var ex = Assert.Throws<ArgumentException>(() => new FindAJobService(mockedJob.Object, null, viewModel.Object, unit.Object));
+            var ex = Assert.Throws<ArgumentException>(() => new FindAJobService(mockedJob.Object, null, viewModel.Object, unit.Object,mockedImageService.Object));
 
             Assert.That(ex.Message.Contains("employee"));
         }
@@ -52,9 +55,10 @@ namespace LionJobs.Services.Tests
             var mockedEmployees = new Mock<IEfRepository<Employee>>();
             var viewModel = new Mock<CompanyJobsViewModel>();
             var unit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
 
             //Act
-            var ex = Assert.Throws<ArgumentException>(() => new FindAJobService(mockedJob.Object, mockedEmployees.Object, null, unit.Object));
+            var ex = Assert.Throws<ArgumentException>(() => new FindAJobService(mockedJob.Object, mockedEmployees.Object, null, unit.Object,mockedImageService.Object));
 
             Assert.That(ex.Message.Contains("viewmodel"));
         }
@@ -65,13 +69,30 @@ namespace LionJobs.Services.Tests
             //Arrange
             var mockedJob = new Mock<IEfRepository<Job>>();
             var mockedEmployees = new Mock<IEfRepository<Employee>>();
-            var viewModel = new Mock<CompanyJobsViewModel>();
+            var viewModel = new Mock<PagedFindAJobList>();
             var unit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
 
             //Act
-            var ex = Assert.Throws<ArgumentException>(() => new FindAJobService(mockedJob.Object, mockedEmployees.Object, viewModel.Object, null));
+            var ex = Assert.Throws<ArgumentException>(() => new FindAJobService(mockedJob.Object, mockedEmployees.Object, viewModel.Object, null,mockedImageService.Object));
 
             Assert.That(ex.Message.Contains("unitofwork"));
+        }
+
+        [Test]
+        public void ThrowWhenImageServiceIsNull()
+        {
+            //Arrange
+            var mockedJob = new Mock<IEfRepository<Job>>();
+            var mockedEmployees = new Mock<IEfRepository<Employee>>();
+            var viewModel = new Mock<PagedFindAJobList>();
+            var unit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
+
+            //Act
+            var ex = Assert.Throws<ArgumentException>(() => new FindAJobService(mockedJob.Object, mockedEmployees.Object, viewModel.Object, unit.Object, null));
+
+            Assert.That(ex.Message.Contains("imageservice"));
         }
 
         [Test]
@@ -80,11 +101,12 @@ namespace LionJobs.Services.Tests
             //Arrange
             var mockedJob = new Mock<IEfRepository<Job>>();
             var mockedEmployees = new Mock<IEfRepository<Employee>>();
-            var viewModel = new Mock<CompanyJobsViewModel>();
+            var viewModel = new Mock<PagedFindAJobList>();
             var unit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
 
             //Act
-            var service = new FindAJobService(mockedJob.Object, mockedEmployees.Object, viewModel.Object, unit.Object);
+            var service = new FindAJobService(mockedJob.Object, mockedEmployees.Object, viewModel.Object, unit.Object,mockedImageService.Object);
 
             Assert.IsInstanceOf<FindAJobService>(service);
         }

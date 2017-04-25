@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using LionJobs.Data.Common;
 using LionJobs.Models;
 using LionJobs.ViewModels;
+using LionJobs.Services.Interfaces;
 
 namespace LionJobs.Services.Tests
 {
@@ -22,10 +23,11 @@ namespace LionJobs.Services.Tests
             var job = new Job();
             var mockedJob = new Mock<IEfRepository<Job>>();
             var mockedEmployees = new Mock<IEfRepository<Employee>>();
-            var viewModel = new Mock<CompanyJobsViewModel>();
+            var viewModel = new Mock<PagedFindAJobList>();
             var unit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
             mockedJob.Setup(x => x.GetById(test)).Returns(job);
-            var service = new FindAJobService(mockedJob.Object, mockedEmployees.Object, viewModel.Object, unit.Object);
+            var service = new FindAJobService(mockedJob.Object, mockedEmployees.Object, viewModel.Object, unit.Object,mockedImageService.Object);
 
             //Act
             var result = service.FindAJob(test);
@@ -43,10 +45,11 @@ namespace LionJobs.Services.Tests
             var job = new Job();
             var mockedJob = new Mock<IEfRepository<Job>>();
             var mockedEmployees = new Mock<IEfRepository<Employee>>();
-            var viewModel = new Mock<CompanyJobsViewModel>();
+            var viewModel = new Mock<PagedFindAJobList>();
             var unit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
             mockedJob.Setup(x => x.GetById(test)).Returns(job);
-            var service = new FindAJobService(mockedJob.Object, mockedEmployees.Object, viewModel.Object, unit.Object);
+            var service = new FindAJobService(mockedJob.Object, mockedEmployees.Object, viewModel.Object, unit.Object,mockedImageService.Object);
 
             //Act
             var result = service.FindAJob("qwe");

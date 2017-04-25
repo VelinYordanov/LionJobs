@@ -1,5 +1,6 @@
 ﻿using LionJobs.Data.Common;
 using LionJobs.Models;
+using LionJobs.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -19,7 +20,8 @@ namespace LionJobs.Services.Tests
             //Arrange
             var mockedRepository = new Mock<IEfRepository<Employee>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
-            var service = new EmployeesService(mockedRepository.Object, mockedUnitOfWork.Object);
+            var mockedImageService = new Mock<IImageService>();
+            var service = new EmployeesService(mockedRepository.Object, mockedUnitOfWork.Object,mockedImageService.Object);
             var firstString = "test";
             var employee = new Employee
             {

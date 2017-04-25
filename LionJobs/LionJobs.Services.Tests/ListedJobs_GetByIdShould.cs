@@ -20,8 +20,9 @@ namespace LionJobs.Services.Tests
             string test = "test";
             var job = new Job();
             var mockedJobs = new Mock<IEfRepository<Job>>();
-            var mockedCompany = new Mock<IEfRepository<Company>>();            
-            var service = new ListedJobsService(mockedJobs.Object, mockedCompany.Object);
+            var mockedCompany = new Mock<IEfRepository<Company>>();
+            var mockedUnitOfWork = new Mock<IUnitOfWork>();
+            var service = new ListedJobsService(mockedJobs.Object, mockedCompany.Object, mockedUnitOfWork.Object);
             mockedJobs.Setup(x => x.GetById(test)).Returns(job);
 
             //Assert
@@ -39,7 +40,8 @@ namespace LionJobs.Services.Tests
             var job = new Job();
             var mockedJobs = new Mock<IEfRepository<Job>>();
             var mockedCompany = new Mock<IEfRepository<Company>>();
-            var service = new ListedJobsService(mockedJobs.Object, mockedCompany.Object);
+            var mockedUnitOfWork = new Mock<IUnitOfWork>();
+            var service = new ListedJobsService(mockedJobs.Object, mockedCompany.Object,mockedUnitOfWork.Object);
             mockedJobs.Setup(x => x.GetById(test)).Returns(job);
 
             //Assert

@@ -35,6 +35,11 @@ namespace LionJobs.Web.Controllers
                 throw new ArgumentException("unitofwork");
             }
 
+            if(imageService == null)
+            {
+                throw new ArgumentException("imageservice");
+            }
+
             this.jobsService = jobsService;
             this.employeeService = employeeService;
             this.unitOfWork = unitOfWork;

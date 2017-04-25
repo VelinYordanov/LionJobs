@@ -28,6 +28,11 @@ namespace LionJobs.Services
                 throw new ArgumentException("company");
             }
 
+            if(unitOfWork == null)
+            {
+                throw new ArgumentException("unitofwork");
+            }
+
             this.jobsRepository = jobsRepository;
             this.companyRepository = companyRepository;
             this.unitOfWork = unitOfWork;

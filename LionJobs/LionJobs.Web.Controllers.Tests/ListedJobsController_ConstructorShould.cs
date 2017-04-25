@@ -20,9 +20,10 @@ namespace LionJobs.Web.Controllers.Tests
             var mockedList = new Mock<IListedJobsService>();
             var mockedEmployee = new Mock<IEmployeeService>();
             var mockedUnit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
 
             //Act
-            var ex = Assert.Throws<ArgumentException>(() => new ListedJobsController(null, mockedEmployee.Object, mockedUnit.Object));
+            var ex = Assert.Throws<ArgumentException>(() => new ListedJobsController(null, mockedEmployee.Object, mockedUnit.Object,mockedImageService.Object));
 
             //Assert
             Assert.That(ex.Message.Contains("jobservice"));
@@ -35,9 +36,10 @@ namespace LionJobs.Web.Controllers.Tests
             var mockedList = new Mock<IListedJobsService>();
             var mockedEmployee = new Mock<IEmployeeService>();
             var mockedUnit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
 
             //Act
-            var ex = Assert.Throws<ArgumentException>(() => new ListedJobsController(mockedList.Object, null, mockedUnit.Object));
+            var ex = Assert.Throws<ArgumentException>(() => new ListedJobsController(mockedList.Object, null, mockedUnit.Object,mockedImageService.Object));
 
             //Assert
             Assert.That(ex.Message.Contains("employeeservice"));
@@ -50,12 +52,29 @@ namespace LionJobs.Web.Controllers.Tests
             var mockedList = new Mock<IListedJobsService>();
             var mockedEmployee = new Mock<IEmployeeService>();
             var mockedUnit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
 
             //Act
-            var ex = Assert.Throws<ArgumentException>(() => new ListedJobsController(mockedList.Object, mockedEmployee.Object, null));
+            var ex = Assert.Throws<ArgumentException>(() => new ListedJobsController(mockedList.Object, mockedEmployee.Object, null,mockedImageService.Object));
 
             //Assert
             Assert.That(ex.Message.Contains("unitofwork"));
+        }
+
+        [Test]
+        public void ThrowWhenImageServiceIsNull()
+        {
+            //Arrange
+            var mockedList = new Mock<IListedJobsService>();
+            var mockedEmployee = new Mock<IEmployeeService>();
+            var mockedUnit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
+
+            //Act
+            var ex = Assert.Throws<ArgumentException>(() => new ListedJobsController(mockedList.Object, mockedEmployee.Object, mockedUnit.Object, null));
+
+            //Assert
+            Assert.That(ex.Message.Contains("imageservice"));
         }
 
         [Test]
@@ -65,9 +84,10 @@ namespace LionJobs.Web.Controllers.Tests
             var mockedList = new Mock<IListedJobsService>();
             var mockedEmployee = new Mock<IEmployeeService>();
             var mockedUnit = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
 
             //Act
-            var controller = new ListedJobsController(mockedList.Object, mockedEmployee.Object, mockedUnit.Object);
+            var controller = new ListedJobsController(mockedList.Object, mockedEmployee.Object, mockedUnit.Object,mockedImageService.Object);
 
             //Assert
             Assert.IsInstanceOf<ListedJobsController>(controller);

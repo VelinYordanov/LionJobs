@@ -1,5 +1,6 @@
 ﻿using LionJobs.Data.Common;
 using LionJobs.Models;
+using LionJobs.Services.Interfaces;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -19,10 +20,11 @@ namespace LionJobs.Services.Tests
             //Arrange
             string test = "test";
             var mockedRepository = new Mock<IEfRepository<Employee>>();
-            var mockedUnitOfWork = new Mock<IUnitOfWork>();           
+            var mockedUnitOfWork = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
             var employee = new Employee();
             mockedRepository.Setup(x => x.GetById(test)).Returns(employee);
-            var service = new EmployeesService(mockedRepository.Object, mockedUnitOfWork.Object);
+            var service = new EmployeesService(mockedRepository.Object, mockedUnitOfWork.Object,mockedImageService.Object);
 
             //Act
             var result = service.GetEmployee(test);
@@ -39,9 +41,10 @@ namespace LionJobs.Services.Tests
             string test = "test";
             var mockedRepository = new Mock<IEfRepository<Employee>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
+            var mockedImageService = new Mock<IImageService>();
             var employee = new Employee();
             mockedRepository.Setup(x => x.GetById(test)).Returns(employee);
-            var service = new EmployeesService(mockedRepository.Object, mockedUnitOfWork.Object);
+            var service = new EmployeesService(mockedRepository.Object, mockedUnitOfWork.Object,mockedImageService.Object);
 
             //Act
             var result = service.GetEmployee("qwe");

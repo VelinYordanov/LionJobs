@@ -36,6 +36,16 @@ namespace LionJobs.Services
                 throw new ArgumentException("unitofwork");
             }
 
+            if(jobListModel == null)
+            {
+                throw new ArgumentException("viewmodel");
+            }
+
+            if(imageService == null)
+            {
+                throw new ArgumentException("imageservice");
+            }
+
             this.jobRepository = jobRepository;
             this.employeeRepository = employeeRepository;
             this.jobListModel = jobListModel;
