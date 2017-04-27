@@ -44,7 +44,8 @@ namespace LionJobs.Services
 
             var listedJobs = this.jobsRepository.GetAllQueryable
                 .Where(x => x.Company.CompanyName == company.CompanyName && 
-                x.Company.Description == company.Description);
+                x.Company.Description == company.Description &&
+                x.IsDeleted == false);
 
             return listedJobs;
         }
@@ -82,7 +83,7 @@ namespace LionJobs.Services
 
             job.JobApplicants.Remove(employee);
 
-            var company = this.jobsRepository.GetAllQueryable.Where(x => x.Id == job.Id).Select(x => x.Company).FirstOrDefault();  
+            job.IsDeleted = true;
 
             this.unitOfWork.SaveChanges();
         }        

@@ -6,6 +6,7 @@ namespace LionJobs.Models
 {
     public class Job
     {
+        private bool isDeleted = false;
         private ICollection<Employee> employeeHistory;
         private ICollection<Employee> jobApplicants;
         private ICollection<Tag> tags;
@@ -29,6 +30,12 @@ namespace LionJobs.Models
         [MinLength(10,ErrorMessage ="Job description cannot be shorter than 10 symbols.")]
         [MaxLength(100,ErrorMessage ="Job description cannot be longer than 100 symbols.")]
         public string Description { get; set; }
+
+        public bool IsDeleted
+        {
+            get { return this.isDeleted; }
+            set { this.isDeleted = value; }
+        }
 
         public virtual ICollection<Tag> Tags
         {
