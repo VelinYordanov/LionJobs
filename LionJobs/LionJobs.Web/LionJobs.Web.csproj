@@ -241,8 +241,13 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\companies.css" />
+    <Content Include="Content\error.css" />
     <Content Include="Content\materialize.min.css" />
     <Content Include="Content\profile.css" />
+    <Content Include="ErrorPages\400.html" />
+    <Content Include="ErrorPages\403.html" />
+    <Content Include="ErrorPages\404.html" />
+    <Content Include="ErrorPages\500.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
