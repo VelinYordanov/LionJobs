@@ -80,7 +80,9 @@ namespace LionJobs.Services
 
             employee.JobHistory.Add(job);
 
-            job.JobApplicants.Remove(employee);            
+            job.JobApplicants.Remove(employee);
+
+            var company = this.jobsRepository.GetAllQueryable.Where(x => x.Id == job.Id).Select(x => x.Company).FirstOrDefault();  
 
             this.unitOfWork.SaveChanges();
         }        

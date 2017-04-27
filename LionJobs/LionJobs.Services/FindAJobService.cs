@@ -97,6 +97,7 @@ namespace LionJobs.Services
         public void AddCandidate(object employeeId,Job job)
         {
             var user = this.employeeRepository.GetById(employeeId);
+            user.JobApplications.Add(job);
             job.JobApplicants.Add(user);
             this.unitOfWork.SaveChanges();
         }

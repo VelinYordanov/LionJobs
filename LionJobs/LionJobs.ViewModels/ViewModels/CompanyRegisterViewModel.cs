@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace LionJobs.Web.ViewModels
 {
@@ -15,6 +16,7 @@ namespace LionJobs.Web.ViewModels
         public string Email { get; set; }
 
         [Required]
+        [AllowHtml]
         [StringLength(300,MinimumLength =30,ErrorMessage ="Description cannot be less than 30 symbols or longer than 300 symbols.")]
         public string Description { get; set; }
 
@@ -26,7 +28,7 @@ namespace LionJobs.Web.ViewModels
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 }

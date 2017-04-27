@@ -13,6 +13,7 @@ namespace LionJobs.Data
         public ApplicationDbContext()
             : base("LionJobsDb")
         {
+            
         }
 
         public static ApplicationDbContext Create()

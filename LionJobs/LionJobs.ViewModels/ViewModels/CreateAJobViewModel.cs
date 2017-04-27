@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace LionJobs.ViewModels
 {
@@ -15,6 +16,7 @@ namespace LionJobs.ViewModels
         public string Title { get; set; }
 
         [Required]
+        [AllowHtml]
         [MinLength(10, ErrorMessage = "Description is too short")]
         [MaxLength(100, ErrorMessage = "Description is too long")]
         public string Description { get; set; }

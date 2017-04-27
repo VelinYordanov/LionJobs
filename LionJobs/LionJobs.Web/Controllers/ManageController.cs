@@ -158,6 +158,7 @@ namespace LionJobs.Web.Controllers
 
         [Authorize(Roles ="Company")]
         [HttpPost]
+        [ValidateInput(enableValidation:false)]
         public ActionResult EditDescription(string description)
         {
             var userId = User.Identity.GetUserId();

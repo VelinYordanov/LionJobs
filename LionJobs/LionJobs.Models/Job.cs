@@ -6,12 +6,16 @@ namespace LionJobs.Models
 {
     public class Job
     {
+        private ICollection<Employee> employeeHistory;
+        private ICollection<Employee> jobApplicants;
+        private ICollection<Tag> tags;
+
         public Job()
         {
             this.Id = Guid.NewGuid();
-            this.Tags = new HashSet<Tag>();
-            this.JobApplicants = new HashSet<Employee>();
-            this.EmployeeHistory = EmployeeHistory;
+            this.tags = new HashSet<Tag>();
+            this.employeeHistory = new HashSet<Employee>();
+            this.jobApplicants = new HashSet<Employee>();
         }
 
         public Guid Id { get; set; }
@@ -26,12 +30,24 @@ namespace LionJobs.Models
         [MaxLength(100,ErrorMessage ="Job description cannot be longer than 100 symbols.")]
         public string Description { get; set; }
 
-        public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Tag> Tags
+        {
+            get { return this.tags; }
+            set { this.tags = value; }
+        }
 
         public virtual Company Company { get; set; }
 
-        public virtual ICollection<Employee> JobApplicants { get; set; }
+        public virtual ICollection<Employee> JobApplicants
+        {
+            get { return this.jobApplicants; }
+            set { this.jobApplicants = value; }
+        }
 
-        public virtual ICollection<Employee> EmployeeHistory { get; set; }
+        public virtual ICollection<Employee> EmployeeHistory
+        {
+            get { return this.employeeHistory; }
+            set { this.employeeHistory = value; }
+        }
     }
 }

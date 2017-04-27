@@ -72,7 +72,7 @@ namespace LionJobs.Web.Controllers
             var jobId = new Guid(id);
             var job = this.findAJobService.FindAJob(jobId);
 
-            if(job.JobApplicants.Contains(user))
+            if(user.JobApplications.Contains(job))
             {
                 this.TempData["Error"] = "Already applied for the job!";
                 return Redirect(Request.UrlReferrer.ToString());
